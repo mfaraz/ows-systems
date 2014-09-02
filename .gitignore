@@ -1,0 +1,8 @@
+## IDE files
+##--------------------
+.idea
+nbproject
+
+## Project files
+##--------------------
+/user_guide

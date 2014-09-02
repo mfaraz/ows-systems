@@ -1,0 +1,284 @@
+/*!
+ * IT Services v1.0.0
+ * Author Man Math
+ * Copyright 2014 IT Services
+ * Licensed under the Apache License v2.0
+ !*/
+html {
+	height: 100%;
+	width: 100%;
+}
+body {
+	background-color: #edd9e4;
+	font-size: 13px;
+}
+body.main {
+	padding-top: 95px;
+}
+a,
+a:hover {
+	text-decoration: none;
+}
+.color-green {
+	color: #449d44;
+}
+.color-red {
+	color: #c9302c;
+}
+.required {
+	color: #c9302c;
+}
+/* ---- Table [BEGIN]---- */
+.table th,
+.table td {
+	text-align: center;
+	font-size: 13px;
+}
+.table th.align-left,
+.table td.align-left {
+	text-align: left;
+}
+.table th.align-right,
+.table td.align-right {
+	text-align: right;
+}
+.table th.valign-middle,
+.table td.valign-middle {
+	vertical-align: middle;
+}
+.table tfoot td {
+	background-color: #333333;
+	color: #ffffff;
+	border-top-width: 2px;
+}
+/* ---- Table [END] ---- */
+/* ---- form login in ---- */
+.login {
+	height: 100%;
+	width: 100%;
+}
+.login .container {
+	height: 100%;
+	display: table;
+	width: 100%;
+}
+.login .container .row {
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+.login .container .row .panel {
+	float: none;
+	margin: 0 auto;
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 12px #333333;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 12px #333333;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 12px #333333;
+}
+.login .container .row .panel .panel-body .form-group.last {
+	margin-bottom: 0;
+}
+/* ---- / form login in ---- */
+/* ---- navigation ---- */
+.navbar {
+	background-color: #428bca;
+	max-height: 80px;
+	moz-box-shadow: 0 2px 8px #333333;
+	-webkit-box-shadow: 0 2px 8px #333333;
+	box-shadow: 0 2px 15px #333333;
+	-ms-filter: progid:DXImageTransform.Microsoft.Shadow(strength=5, Direction=180, Color=#333333);
+}
+.navbar.navbar-inverse {
+	border: none;
+}
+.navbar.navbar-inverse .navbar-nav > li > a {
+	color: #f0f0f0;
+	text-align: center;
+}
+.navbar.navbar-inverse .navbar-nav > li > a:hover,
+.navbar.navbar-inverse .navbar-nav > li > a:focus,
+.navbar.navbar-inverse .navbar-nav > li > a:active {
+	background-color: #ffffff;
+	color: #ec971f;
+}
+.navbar.navbar-inverse .navbar-nav > li > a i.fa {
+	display: block;
+}
+.navbar.navbar-inverse .navbar-nav > .active a,
+.navbar.navbar-inverse .navbar-nav > .active a:hover,
+.navbar.navbar-inverse .navbar-nav > .active a:focus {
+	background-color: #ffffff;
+	color: #ec971f;
+}
+.navbar .nav > li > a {
+	padding: 10px 30px;
+}
+.list-group-item {
+	padding: 8px 15px;
+}
+/* ---- Navigation [END] ---- */
+.alert {
+	padding: 5px 30px 5px 5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+.btn-toolbar {
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #dddddd;
+}
+.content .filter {
+	margin-bottom: 15px;
+}
+/* ---- Form [BEGIN] ---- */
+form .form-group .form-control.input-sm {
+	font-size: 13px;
+	padding: 5px 10px 3px;
+}
+form .form-group .form-control.input-sm.bold {
+	font-weight: 700;
+}
+/* ---- Form [END] ---- */
+/* ---- Panel [START] ---- */
+.nav-tabs {
+	margin-bottom: 14px;
+}
+.tab-pane .panel .panel-heading .accordion-toggle {
+	display: block;
+}
+.tab-pane .panel .panel-heading .accordion-toggle:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	font-size: 11px;
+}
+.tab-pane .panel .panel-heading .accordion-toggle.collapsed:after {
+	content: "\e080";
+}
+/* ---- Panel [END] ---- */
+/* ---- Invoice [BEGIN] ---- */
+.print-invoice .print-header {
+	position: relative;
+	overflow: hidden;
+	clear: both;
+}
+.print-invoice .table {
+	margin-bottom: 5px;
+}
+.print-invoice .table > thead > tr {
+	background-color: #333333;
+}
+.print-invoice .table > thead > tr > th {
+	color: #ffffff;
+}
+.print-invoice .table.table-header caption {
+	margin-bottom: 2px !important;
+}
+.print-invoice .table.table-header tbody > tr > td {
+	border-top-width: 0;
+}
+.print-invoice dl {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.print-invoice dl dt {
+	float: left;
+	width: 116px;
+}
+.sale .panel .panel-heading {
+	position: relative;
+}
+.sale .panel .btn {
+	position: absolute;
+	top: 4px;
+	right: 15px;
+}
+.sale .panel a.btn {
+	color: #ffffff;
+}
+@media print {
+	* {
+		color: #202020;
+		text-shadow: none !important;
+		box-shadow: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		font-size: 8pt !important;
+	}
+	@page {
+		size: 80mm 297mm;
+		orphans: 1;
+		widows: 1;
+	}
+	@page :left {
+		margin: 0;
+	}
+	@page :right {
+		margin: 0;
+	}
+	body,
+	#page {
+		margin-bottom: 30px !important;
+		background: none;
+	}
+	#header,
+	#content,
+	#comments,
+	#sidebar,
+	#footer .site-description,
+	.site-title {
+		display: none;
+	}
+	table {
+		page-break-inside: avoid;
+	}
+	.panel {
+		border: none;
+	}
+	.panel .panel-body {
+		padding: 2px !important;
+	}
+	.table {
+		border-collapse: collapse !important;
+		margin-bottom: 5px !important;
+	}
+	.table th {
+		background-color: #000000 !important;
+		color: #ffffff !important;
+	}
+	.table tbody > tr > td {
+		border-top: 1px solid #202020;
+		padding: 2px 0 !important;
+	}
+	.table tbody > tr > td.align-right {
+		padding-right: 2px !important;
+	}
+	.table tbody > tr > td.align-left {
+		padding-left: 2px !important;
+	}
+	.table.table-header tbody > tr > td {
+		padding: 0 !important;
+	}
+	.table.print {
+		border: 1px solid #202020;
+	}
+	.table-bordered th,
+	.table-bordered td {
+		border-bottom: 1px solid #202020 !important;
+	}
+	dl {
+		margin-bottom: 5px;
+		margin-top: 5px;
+		margin-left: -15px;
+	}
+	dl dt {
+		float: left !important;
+		width: 90px !important;
+	}
+	.only-invoice-number {
+		text-align: center;
+		margin-top: 30px !important;
+		padding-top: 30px !important;
+		border-top: 1px dotted #202020;
+	}
+}
+/* ---- Invoice [END] ---- */
