@@ -29,7 +29,7 @@ class Sales extends HD_Controller {
 		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required|min_length[1]|max_length[25]|trim|numeric');
 		$this->form_validation->set_select('cid');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['categories'] = $this->mcategories->select(1);
+			$this->_data['categories'] = $this->mcategories->select_categorylist();
 			$this->load->view('index', $this->_data);
 		} else {
 			if (!$this->session->userdata('cur_invoice_id')) {

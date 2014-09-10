@@ -42,9 +42,15 @@
 					</div>
 					<div class="panel-body">
 						<div class="form-group">
-							<?php echo form_label('Category', 'cid', array('class' => 'col-sm-3 control-label')); ?>
+							<?php echo form_label('Category', 'parent_id', array('class' => 'col-sm-3 control-label')); ?>
 							<div class="col-sm-9">
-								<?php echo form_select('cid', $categories, 'category', set_value('cid', $products->cid)); ?>
+								<?php echo form_dropdown('parent_id', $categories, set_value('parent_id', $products->parent_id), 'class="form-control input-sm" id="parent_id"'); ?>
+							</div>
+						</div>
+						<div class="form-group">
+							<?php echo form_label('Brand', 'cid', array('class' => 'col-sm-3 control-label')); ?>
+							<div class="col-sm-9">
+								<?php echo form_dropdown('cid', $brands, set_value('cid', $products->cid), 'class="form-control input-sm" id="cid"'); ?>
 							</div>
 						</div>
 						<div class="form-group">

@@ -25,15 +25,19 @@ class Reports extends HD_Controller {
 		$this->form_validation->set_rules('type', '', 'trim');
 		$this->form_validation->set_rules('cashier', '', 'trim');
 		$this->form_validation->set_rules('category', '', 'trim');
+		$this->form_validation->set_rules('brand', '', 'trim');
 		$this->form_validation->set_select('type');
 		$this->form_validation->set_select('cashier');
 		$this->form_validation->set_select('category');
+		$this->form_validation->set_select('brand');
 		$this->form_validation->run();
 		$this->_data['reports'] = $this->mreports->generate_report();
 		$this->_data['cashiers'] = $this->musers->select_cashier();
-		$this->_data['categories'] = $this->mcategories->select(1);
+		$this->_data['categories'] = $this->mcategories->select_categorylist();
+		$this->_data['brands'] = $this->mcategories->select_brandlist();
 		$this->load->view('index', $this->_data);
 	}
+
 }
 
 /* End of file reports.php */

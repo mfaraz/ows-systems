@@ -24,8 +24,8 @@
 						<?php echo form_label('Description', 'description', array('class' => 'col-sm-3
 						control-label')); ?>
 						<div class="col-sm-9">
-							<?php echo form_textarea('description', set_value('description'),
-								'class="form-control input-sm" pattern=".{1,250}" title="Allow enter from 1 to 250 character(s)"'); ?>
+							<?php echo form_textarea('description', set_value('description'), 'class="form-control input-sm" pattern=".{1,250}" title="Allow enter from 1 to 250 character(s)"');
+							?>
 						</div>
 					</div>
 					<div class="form-group">
@@ -45,9 +45,6 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<div class="col-sm-12">
-							<div class="checkbox"><input type="checkbox" name="mul_welcome" value="1" <?php echo set_checkbox('mul_welcome', 1, FALSE); ?>> Allow to manage <strong>Home</strong> module</div>
-						</div>
 						<div class="col-sm-12">
 							<div class="checkbox"><input type="checkbox" name="mul_sales" value="1" <?php echo set_checkbox('mul_sales', 1, FALSE); ?>> Allow to manage <strong>Sales</strong> module</div>
 						</div>

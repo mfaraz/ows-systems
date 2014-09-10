@@ -20,6 +20,14 @@ class Products extends HD_Controller {
 	 * List all categoires
 	 */
 	public function index() {
+		$this->form_validation->set_rules('parent_id', '', 'trim');
+		$this->form_validation->set_rules('cid', '', 'trim');
+		$this->form_validation->set_select('parent_id');
+		$this->form_validation->set_select('cid');
+		$this->form_validation->run();
+		$this->_data['categories'] = $this->mcategories->select_categorylist();
+		$this->_data['brands'] = $this->mcategories->select_brandlist();
+		$this->_data['brand'] = $this->input->post('brand') ? $this->input->post('brand') : '';
 		$this->_data['products'] = $this->mproducts->select();
 		$this->load->view('index', $this->_data);
 	}
@@ -31,15 +39,18 @@ class Products extends HD_Controller {
 	 * @return void
 	 */
 	public function add() {
+		$this->_data['categories'] = $this->mcategories->select_categorylist();
+
 		$this->form_validation->set_rules('name', 'name', 'required|trim|max_length[50]|min_length[2]|is_unique[ci_products.name]');
 		$this->form_validation->set_rules('unit_in_stocks', 'unit in stocks', 'required|trim|max_length[50]|min_length[1]|numeric');
 		$this->form_validation->set_rules('description', '', 'trim');
 		$this->form_validation->set_rules('status', '', 'trim');
+		$this->form_validation->set_rules('parent_id', 'Category', 'required|trim');
 		$this->form_validation->set_rules('cid', '', 'trim');
+		$this->form_validation->set_select('parent_id');
 		$this->form_validation->set_select('cid');
 		$this->form_validation->set_checkbox('status');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['categories'] = $this->mcategories->select(1);
 			$this->load->view('index', $this->_data);
 		} else {
 			if ($this->mproducts->add()) {
@@ -64,12 +75,15 @@ class Products extends HD_Controller {
 
 		$this->form_validation->set_rules('name', 'name', 'required|trim|max_length[50]|min_length[2]|callback_uniqueExcept[ci_products.name, pid]');
 		$this->form_validation->set_rules('description', '', 'trim');
+		$this->form_validation->set_rules('parent_id', '', 'trim');
 		$this->form_validation->set_rules('cid', '', 'trim');
 		$this->form_validation->set_rules('status', '', 'trim');
+		$this->form_validation->set_select('parent_id');
 		$this->form_validation->set_select('cid');
 		$this->form_validation->set_checkbox('status');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['categories'] = $this->mcategories->select(1);
+			$this->_data['categories'] = $this->mcategories->select_categorylist();
+			$this->_data['brands'] = $this->mcategories->select_brandlist();
 			$this->load->view('index', $this->_data);
 		} else {
 			if ($this->mproducts->edit()) {

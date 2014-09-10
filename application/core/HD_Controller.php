@@ -25,7 +25,7 @@ class HD_Controller extends CI_Controller {
 	/**
 	 * Create default constants
 	 */
-	function createConstants () {
+	function createConstants() {
 		$this->load->model('msettings');
 		$constants = $this->msettings->select_setting();
 		if ($constants->num_rows() > 0) {
@@ -35,7 +35,7 @@ class HD_Controller extends CI_Controller {
 			define('COMPANY_ADDRESS', $constant['DEFAULT_COMPANY_ADDRESS']);
 			define('COMPANY_PHONE', $constant['DEFAULT_COMPANY_PHONE']);
 			define('USD_TO_KH', $constant['DEFAULT_USD_TO_KH']);
-			define('DEFAULT_PASSWORD', $constant['DEFAULT_PASSWORD']);
+			define('DEFAULT_COMPANY_LOGO', $constant['DEFAULT_COMPANY_LOGO']);
 			define('COMPANY_EMAIL', $constant['DEFAULT_COMPANY_EMAIL']);
 		}
 	}

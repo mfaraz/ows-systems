@@ -27,21 +27,9 @@
 						</div>
 					</div>
 					<div class="form-group <?php echo form_is_error('username'); ?>">
-						<?php echo form_label('Username<span class="required">*</span>', 'username', array('class' => 'col-sm-3 control-label')); ?>
+						<?php echo form_label('Username <span class="required">*</span>', 'username', array('class' => 'col-sm-3 control-label')); ?>
 						<div class="col-sm-9">
-							<?php echo form_input('username', set_value('username'), 'class="form-control input-sm" pattern=".{5,50}" title="Allow enter from 5 to 50 characters"') . form_error('username'); ?>
-						</div>
-					</div>
-					<div class="form-group <?php echo form_is_error('password'); ?>">
-						<?php echo form_label('Password', 'password', array('class' => 'col-sm-3 control-label')); ?>
-						<div class="col-sm-9">
-							<?php echo form_password('password', set_value('password'), 'class="form-control input-sm" pattern=".{5,50}" title="Allow enter from 5 to 50 characters"') . form_error('password'); ?>
-						</div>
-					</div>
-					<div class="form-group <?php echo form_is_error('conpassword'); ?>">
-						<?php echo form_label('Confirm Password', 'conpassword', array('class' => 'col-sm-3 control-label')); ?>
-						<div class="col-sm-9">
-							<?php echo form_password('conpassword', set_value('conpassword'), 'class="form-control input-sm" pattern=".{5,50}" title="Allow enter from 5 to 50 characters"') . form_error('conpassword'); ?>
+							<?php echo form_input('username', set_value('username'), 'class="form-control input-sm" pattern=".{2,50}" title="Allow enter from 2 to 50 characters" required') . form_error('username'); ?>
 						</div>
 					</div>
 					<div class="form-group <?php echo form_is_error('email'); ?>">
@@ -76,7 +64,19 @@
 					<div class="form-group">
 						<?php echo form_label('Select user group', 'rid', array('class' => 'col-sm-3 control-label')); ?>
 						<div class="col-sm-9">
-							<?php echo form_select('rid', $role, 'role', set_value('rid')); ?>
+							<?php echo form_dropdown('rid', $roles, set_value('rid'), 'class="form-control input-sm"'); ?>
+						</div>
+					</div>
+					<div class="form-group <?php echo form_is_error('password'); ?>">
+						<?php echo form_label('Password <span class="required">*</span>', 'password', array('class' => 'col-sm-3 control-label')); ?>
+						<div class="col-sm-9">
+							<?php echo form_password('password', set_value('password'), 'class="form-control input-sm" pattern=".{3,50}" title="Allow enter from 3 to 50 characters" required') . form_error('password'); ?>
+						</div>
+					</div>
+					<div class="form-group <?php echo form_is_error('conpassword'); ?>">
+						<?php echo form_label('Confirm Password <span class="required">*</span>', 'conpassword', array('class' => 'col-sm-3 control-label')); ?>
+						<div class="col-sm-9">
+							<?php echo form_password('conpassword', set_value('conpassword'), 'class="form-control input-sm" pattern=".{3,50}" title="Allow enter from 3 to 50 characters" required') . form_error('conpassword'); ?>
 						</div>
 					</div>
 					<div class="form-group">

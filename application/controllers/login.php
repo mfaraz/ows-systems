@@ -54,7 +54,6 @@ class Login extends CI_Controller {
 				'ci_firstname' => $result->firstname,
 				'ci_fullname' => $result->firstname . ' ' . $result->lastname,
 				'ci_role' => $result->name,
-				'mul_welcome' => $result->mul_welcome,
 				'mul_sales' => $result->mul_sales,
 				'mul_products' => $result->mul_products,
 				'mul_categories' => $result->mul_categories,
@@ -63,7 +62,7 @@ class Login extends CI_Controller {
 				'mul_users' => $result->mul_users,
 				'mul_settings' => $result->mul_settings
 			));
-			redirect('welcome/');
+			redirect('sales/');
 		} else {
 			$this->session->set_flashdata('message', alert_message('Invalid username or password!', 'danger'));
 			redirect('login/', 'refresh');
@@ -84,7 +83,7 @@ class Login extends CI_Controller {
 			}
 		}
 		$this->session->sess_destroy();
-		redirect('welcome', 'refresh');
+		redirect('sales', 'refresh');
 	}
 
 }

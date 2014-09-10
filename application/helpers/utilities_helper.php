@@ -176,10 +176,9 @@ if (!function_exists('javascripts')) {
 	function javascripts() {
 		$scripts = '';
 
-		$scripts .= script_tag(JS_PATH . 'jquery.js') . "\r\n";
+		$scripts .= script_tag(JS_PATH . 'jquery-ui.min.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'bootstrap.min.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'bootstrap-datepicker.js') . "\r\n";
-		$scripts .= script_tag(JS_PATH . 'jquery-ui.min.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'custom.min.js') . "\r\n";
 
 		return $scripts;
@@ -253,11 +252,11 @@ if (!function_exists('script_tag')) {
  */
 if (!function_exists('site_title')) {
 
-	function site_title($title = '') {
+	function site_title($title = '', $project = '') {
 		if (isset($title) && $title != '') {
-			return '<title>' . $title . ' - ' . PROJECT_NAME . '</title>';
+			return '<title>' . $title . ' - ' . $project . '</title>';
 		}
-		return '<title> Welcome - ' . PROJECT_NAME . '</title>';
+		return '<title> Welcome - ' . $project . '</title>';
 	}
 
 }

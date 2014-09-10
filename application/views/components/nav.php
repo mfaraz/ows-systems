@@ -2,14 +2,7 @@
 	<div class="container-fluid">
 		<nav class="navbar-collapse collapse">
 			<ul class="nav navbar-nav pull-left">
-				<?php if ($this->session->userdata('mul_welcome')): ?>
-					<li class="<?php echo $this->uri->segment(1) == 'welcome' ? 'active' : '' ?>">
-						<?php
-						echo anchor('welcome/', '<i class="fa fa-home fa-3x"></i>Home', 'title="Dashboard"');
-						?>
-					</li>
-					<?php
-				endif;
+				<?php
 				if ($this->session->userdata('mul_sales')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'sales' ? 'active' : '' ?>">
@@ -26,7 +19,7 @@
 						echo anchor('deposits/', '<i class="fa fa-history fa-3x"></i>Deposits', 'title="Deposits"');
 						?>
 					</li>
-				<?php
+					<?php
 				endif;
 				if ($this->session->userdata('mul_products')):
 					?>

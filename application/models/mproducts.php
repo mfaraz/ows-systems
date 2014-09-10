@@ -18,7 +18,16 @@ class Mproducts extends CI_Model {
 	 * @return boolean/array_object
 	 */
 	public function select() {
-		$result = $this->db->get('ci_products');
+		$this->db->select(array('p.*', 'c.name AS brand'));
+		if ($this->input->post('parent_id') != '') {
+			$this->db->where('p.parent_id', $this->input->post('parent_id'));
+		}
+		if ($this->input->post('cid') != '') {
+			$this->db->where('p.cid', $this->input->post('cid'));
+		}
+		$result = $this->db->from('ci_products p')
+			->join('ci_categories c', 'c.cid = p.cid')
+			->get();
 
 		if ($result->num_rows() > 0) {
 			return $result->result();
@@ -27,7 +36,7 @@ class Mproducts extends CI_Model {
 	}
 
 	public function select_by_id($id) {
-		$result = $this->db->select(array('pid', 'p.cid', 'p.name', 'p.unit_in_stocks', 'p.description', 'p.status'))
+		$result = $this->db->select(array('pid', 'p.parent_id', 'p.cid', 'p.name', 'p.unit_in_stocks', 'p.description', 'p.status'))
 			->from('ci_products p')
 			->join('ci_categories c', 'c.cid = p.cid')
 			->where('pid', $id)
@@ -59,7 +68,6 @@ class Mproducts extends CI_Model {
 	 * @return boolean
 	 */
 	public function edit() {
-		$this->db->set('mouser', $this->session->userdata('ci_id'));
 		$this->db->set('modate', time(), FALSE);
 		$this->_data = $this->input->post();
 		if (empty($this->_data['status'])) {

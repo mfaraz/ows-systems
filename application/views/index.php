@@ -5,8 +5,9 @@
 		<meta charset="UTF-8">
 		<?php
 		echo stylesheets();
-		echo site_title($title);
+		echo site_title($title, $this->msettings->display_setting('DEFAULT_COMPANY_NAME'));
 		?>
+		<script type="text/javascript" src="<?php echo base_url(); ?>resources/js/jquery.min.js"></script>
 	</head>
 	<body class="main">
 		<!-- navigation [BEGIN] -->

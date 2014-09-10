@@ -18,21 +18,26 @@ class Musers extends CI_Model {
 	 * @param integer $id
 	 * @return boolean/array_object
 	 */
-	public function select($id = '') {
+	public function get_user() {
 		$this->db->select(array('u.*', 'r.name'))
-				->from('ci_users u')
-				->join('ci_roles r', 'r.rid = u.rid')
-				->order_by('u.firstname');
-
-		if ($id !== '') {
-			$this->db->where('uid', $id)
-					->limit(1);
-		}
+			->from('ci_users u')
+			->join('ci_roles r', 'r.rid = u.rid')
+			->order_by('u.firstname');
 
 		$result = $this->db->get();
 
 		if ($result->num_rows() > 0) {
 			return $result->result();
+		}
+		return FALSE;
+	}
+
+	public function get_user_byid($id) {
+		$result = $this->db->where('uid', $id)
+			->limit(1)
+			->get('ci_users');
+		if ($result->num_rows() > 0) {
+			return $result->row();
 		}
 		return FALSE;
 	}
@@ -53,6 +58,7 @@ class Musers extends CI_Model {
 		}
 		return FALSE;
 	}
+
 	/**
 	 * Create user
 	 *
@@ -75,19 +81,43 @@ class Musers extends CI_Model {
 	}
 
 	/**
+	 * Edit user
+	 *
+	 * @return boolean
+	 */
+	public function edit() {
+		$this->db->set('modate', time(), FALSE);
+		$this->_data = $this->input->post();
+		if (empty($this->_data['status'])) {
+			$this->db->set('status', 0);
+		}
+		$this->db->where('uid', $this->uri->segment(3));
+		return $this->db->update('ci_users', $this->_data) ? TRUE : FALSE;
+	}
+
+	/**
+	 * Change password
+	 */
+	public function change_password() {
+		$this->db->set('password', md5($this->input->post('password') . $this->config->item('encryption_key')));
+		$this->db->where('uid', $this->uri->segment(3));
+		return $this->db->update('ci_users') ? TRUE : FALSE;
+	}
+
+	/**
 	 * Login validation
 	 */
 	public function validate_login() {
 		$result = $this->db->select(array('u.*', 'r.*'))
-				->from('ci_users u')
-				->join('ci_roles r', 'r.rid = u.rid')
-				->where(array(
-					'username' => $this->input->post('username'),
-					'password' => md5($this->input->post('password') . $this->config->item('encryption_key')),
-					'u.status' => 1)
-				)
-				->limit(1)
-				->get();
+			->from('ci_users u')
+			->join('ci_roles r', 'r.rid = u.rid')
+			->where(array(
+				'username' => $this->input->post('username'),
+				'password' => md5($this->input->post('password') . $this->config->item('encryption_key')),
+				'u.status' => 1)
+			)
+			->limit(1)
+			->get();
 		if ($result->num_rows() > 0) {
 			return $result->row();
 		}
@@ -99,10 +129,11 @@ class Musers extends CI_Model {
 	 *
 	 * @return bool
 	 */
-	public function discard () {
+	public function discard() {
 		$this->db->where('uid', $this->uri->segment(3));
 		return $this->db->delete('ci_users') ? TRUE : FALSE;
 	}
+
 }
 
 /* End of file musers.php */

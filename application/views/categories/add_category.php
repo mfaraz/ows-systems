@@ -3,7 +3,7 @@
 </div>
 <div class="panel-body">
 	<?php
-	echo form_open('categories/add', 'role="form" class="form-horizontal"');
+	echo form_open('categories/add_category', 'role="form" class="form-horizontal"');
 	echo form_toolbar();
 	?>
 	<div class="row-fluid">

@@ -109,6 +109,7 @@ class Msales extends CI_Model {
 	public function save_invoice_details() {
 		$this->_data = array(
 			'iid' => $this->session->userdata('cur_invoice_id'),
+			'parent_id' => $this->input->post('parent_id'),
 			'cid' => $this->input->post('cid'),
 			'name' => $this->input->post('name'),
 			'qty' => $this->input->post('qty'),

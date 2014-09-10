@@ -8,8 +8,10 @@
 			echo form_open('reports/', 'class="form-inline" role="form"');
 			?>
 			<div class="form-group">
-				<input type="text" class="form-control input-sm" id="date" name="date" value="<?php echo
-				set_value('date', mdate('%d-%m-%Y')); ?>" pattern=".{10}" />
+				<input type="text" class="form-control input-sm" id="date" name="date" value="<?php
+				echo
+				set_value('date', mdate('%d-%m-%Y'));
+				?>" pattern=".{10}" />
 			</div>
 			<div class="form-group">
 				<?php echo form_dropdown('type', array('daily' => 'Daily', 'monthly' => 'Monthly', 'yearly' => 'Yearly'), set_value('type'), 'class="form-control input-sm"') ?>
@@ -17,31 +19,30 @@
 			<div class="form-group">
 				<?php
 				if ($cashiers) {
-				?>
+					?>
 					<select name="cashier" class="form-control input-sm">
+						<option value="">--cashier--</option>
 						<?php
-						foreach($cashiers as $cashier) {
+						foreach ($cashiers as $cashier) {
 							echo '<option value="' . $cashier->firstname . '" ' . set_select('cashier', $cashier->firstname) . '>' . $cashier->firstname . '</option>';
 						}
 						?>
 					</select>
-				<?php
+					<?php
 				}
 				?>
 			</div>
 			<div class="form-group">
 				<?php
 				if ($categories) {
-					?>
-					<select name="category" class="form-control input-sm">
-						<?php
-						foreach($categories as $category) {
-							echo '<option value="' . $category->name . '" ' . set_select('category', $category->name) . '>' . $category->name . '</option>';
-						}
-						?>
-						<option value="Accessories" <?php echo set_select('category', 'Accessories'); ?>>Accessories</option>
-					</select>
+					echo form_dropdown('category', array('' => '--category--') + $categories, set_value('category'), 'class="form-control input-sm" id="category"');
+				}
+				?>
+			</div>
+			<div class="form-group">
 				<?php
+				if ($brands) {
+					echo form_dropdown('brand', array('' => '--brand--') + $brands, set_value('brand'), 'class="form-control input-sm" id="brand"');
 				}
 				?>
 			</div>

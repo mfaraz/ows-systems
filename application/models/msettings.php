@@ -35,18 +35,42 @@ class Msettings extends CI_Model {
 		return FALSE;
 	}
 
-	public function select_setting () {
+	public function select_setting() {
 		return $this->db->get('ci_settings');
 	}
 
-	public function save_default() {
-		$this->_data = $this->input->post();
+	public function save_default($filename = '') {
+		if (!empty($filename)) {
+			$this->db->set('DEFAULT_COMPANY_LOGO', $filename);
+		}
+		$this->db->set('DEFAULT_COMPANY_NAME', $this->input->post('DEFAULT_COMPANY_NAME'))
+			->set('DEFAULT_COMPANY_ADDRESS', $this->input->post('DEFAULT_COMPANY_ADDRESS'))
+			->set('DEFAULT_COMPANY_PHONE', $this->input->post('DEFAULT_COMPANY_PHONE'))
+			->set('DEFAULT_USD_TO_KH', $this->input->post('DEFAULT_USD_TO_KH'))
+			->set('DEFAULT_COMPANY_EMAIL', $this->input->post('DEFAULT_COMPANY_EMAIL'));
 		$result = $this->db->get('ci_settings');
 		if ($result->num_rows() > 0) {
-			return $this->db->update('ci_settings', $this->_data) ? TRUE : FALSE;
+			return $this->db->update('ci_settings') ? TRUE : FALSE;
 		} else {
-			return $this->db->insert('ci_settings', $this->_data) ? TRUE : FALSE;
+			return $this->db->insert('ci_settings') ? TRUE : FALSE;
 		}
+	}
+
+	/**
+	 * Display company settings
+	 * 
+	 * @param string $field
+	 * @return boolean/mixed
+	 */
+	public function display_setting($field) {
+		$result = $this->db->select($field)
+			->from('ci_settings')
+			->get();
+		if ($result->num_rows() > 0) {
+			$data = $result->row(0);
+			return $data->$field;
+		}
+		return FALSE;
 	}
 
 }

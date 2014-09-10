@@ -24,9 +24,9 @@
 		?>
 		<table class="table table-header">
 			<caption>
-				<?php echo img(array('src' => IMG_PATH . 'logo.jpg', 'align' => 'center')) . br(1); ?>
-				<?php echo COMPANY_ADDRESS . br(); ?>
-				<strong><?php echo COMPANY_PHONE; ?></strong>
+				<?php echo img(array('src' => IMG_PATH . $this->msettings->display_setting('DEFAULT_COMPANY_LOGO'), 'align' => 'center')) . br(1); ?>
+				<?php echo$this->msettings->display_setting('DEFAULT_COMPANY_ADDRESS') . br(); ?>
+				<strong><?php echo $this->msettings->display_setting('DEFAULT_COMPANY_PHONE'); ?></strong>
 			</caption>
 			<tr>
 				<td colspan="2" class="hidden-print align-left" style="width: 50%;">
@@ -93,7 +93,10 @@
 		<table class="table table-header visible-print">
 			<tr>
 				<td>
-					Thanks you for shopping at our shop, please come again
+					សូមអរគុណ សូមអញ្ជើញមកម្ដងទៀត
+					Thank you, please come again!
+					ទំនិញទិញហើយមិនអាចប្ដូរវិញបានទេ
+					Goods sold not returnable
 				</td>
 			</tr>
 		</table>

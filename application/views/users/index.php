@@ -22,31 +22,6 @@
 					?>
 				</div>
 				<div class="content">
-					<div class="filter">
-						<?php
-						echo form_open('users/', 'class="form-inline"');
-						?>
-						<div class="form-group">
-							<label class="sr-only" for="fname">Name</label>
-							<input type="text" class="form-control input-sm" id="fname" name="fname" value="<?php echo set_value('fname'); ?>" placeholder="Name">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="username">Username</label>
-							<input type="text" class="form-control input-sm" id="username" name="username" value="<?php echo set_value('username'); ?>" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="email">Email</label>
-							<input type="text" class="form-control input-sm" id="email" name="email" value="<?php echo set_value('email'); ?>" placeholder="Email">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="status">Status</label>
-							<?php echo form_dropdown('status', array('' => '-- All Status --', '1' => 'Enabled', '0' => 'Disabled'), set_value('status', $this->session->userdata('status')), 'class="form-control input-sm"') ?>
-						</div>
-						<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
-						<?php
-						echo form_close();
-						?>
-					</div>
 					<table class="table table-striped table-hover table-bordered">
 						<thead>
 							<tr>
@@ -80,12 +55,8 @@
 								<td><?php echo ($user->status == 1) ? '<span class="glyphicon glyphicon-ok-sign color-green"></span>' : '<span class="glyphicon glyphicon-minus-sign color-red"></span>'; ?></td>
 								<td>
 									<?php
-									if ($user->uid > 1) {
-										echo anchor('users/edit_user/' . $user->uid, '<span class="glyphicon glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit"') . '&nbsp;' . anchor('users/discard_user/' . $user->uid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" title="Delete" onclick="return confirm(\'Are you sure you want to delete?\')"');
-									} else {
-										echo anchor('users/edit_user/' . $user->uid, '<span class="glyphicon
-										glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit" disabled="disabled"') . '&nbsp;' . anchor('users/discard_user/' . $user->uid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" title="Delete" disabled="disabled"');
-									}
+									echo anchor('users/edit_user/' . $user->uid, '<span class="glyphicon
+										glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit"') . '&nbsp;' . anchor('users/change_password/' . $user->uid, '<span class="glyphicon glyphicon-lock"></span>', 'class="btn btn-default btn-xs" title="Change Password" onclick="return confirm(\'Are you sure you want to change password?\')"') . '&nbsp;' . anchor('users/discard_user/' . $user->uid, '<span class="glyphicon glyphicon-trash"></span>', (($user->uid > 1) ? '' : 'disabled="disabled"') . 'class="btn btn-danger btn-xs" title="Delete"');
 									?>
 								</td>
 								</tr>
@@ -111,14 +82,13 @@
 							<tr>
 								<th rowspan="2" class="valign-middle">N&ordm;</th>
 								<th rowspan="2" class="valign-middle">Role</th>
-								<th colspan="8">Modules Permission</th>
+								<th colspan="7">Modules Permission</th>
 								<th rowspan="2" class="valign-middle">Date Created</th>
 								<th rowspan="2" class="valign-middle">Date Modified</th>
 								<th rowspan="2" class="valign-middle">Status</th>
 								<th rowspan="2" class="valign-middle">Action</th>
 							</tr>
 							<tr>
-								<th>Home</th>
 								<th>Sales</th>
 								<th>Deposits</th>
 								<th>Products</th>
@@ -138,7 +108,6 @@
 									<tr>
 										<td><?php echo $i++; ?></td>
 										<td class="align-left"><?php echo $role->name; ?></td>
-										<td><?php echo $role->mul_welcome == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_sales == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_deposits == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_products == 1 ? $yes : $no; ?></td>
@@ -151,12 +120,8 @@
 										<td><?php echo ($role->status == 1) ? $yes : $no; ?></td>
 										<td>
 											<?php
-											if ($role->rid > 1) {
-												echo anchor('users/edit_role/' . $role->rid, '<span class="glyphicon glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit" disabled="disabled"') . '&nbsp;' . anchor('users/discard_role/' . $role->rid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" title="Delete" onclick="return confirm(\'Are you sure you want to delete this role?\')"');
-											} else {
-												echo anchor('users/edit_role/' . $role->rid, '<span class="glyphicon
-											glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit" disabled="disabled"') . '&nbsp;' . anchor('users/discard_role/' . $role->rid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" title="Delete" disabled="disabled"');
-											}
+											echo anchor('users/edit_role/' . $role->rid, '<span class="glyphicon
+											glyphicon-edit"></span>', 'class="btn btn-warning btn-xs" title="Edit"') . '&nbsp;' . anchor('users/discard_role/' . $role->rid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" title="Delete"' . (($role->rid > 1) ? '' : 'disabled="disabled"'));
 											?>
 										</td>
 									</tr>
