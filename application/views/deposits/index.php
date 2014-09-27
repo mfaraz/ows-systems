@@ -14,6 +14,10 @@
 				<label class="sr-only" for="invoice_number">Invoice Number</label>
 				<input type="text" class="form-control input-sm" id="invoice_number" name="invoice_number" value="<?php echo set_value('invoice_number'); ?>" placeholder="Invoice Number" pattern=".{1,12}" title="Allow enter between 1 to 12 character(s)">
 			</div>
+			<div class="form-group">
+				<label class="sr-only" for="customer_phone">Customer Phone</label>
+				<input type="text" class="form-control input-sm" id="customer_phone" name="customer_phone" value="<?php echo set_value('customer_phone'); ?>" placeholder="Customer Phone" pattern=".{9,15}" title="Allow enter between 9 to 15 character(s)">
+			</div>
 			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
 			</form>
 		</div>

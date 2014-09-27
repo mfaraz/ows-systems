@@ -55,7 +55,7 @@ class Mproducts extends CI_Model {
 	 * @return boolean
 	 */
 	public function add() {
-		$this->db->set('cruser', $this->session->userdata('ci_id'));
+		$this->db->set('cruser', $this->musers->has_login('sess_id'));
 		$this->db->set('crdate', time(), FALSE);
 		$this->_data = $this->input->post();
 		return $this->db->insert('ci_products', $this->_data) ? TRUE : FALSE;

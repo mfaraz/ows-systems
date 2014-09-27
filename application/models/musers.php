@@ -124,6 +124,24 @@ class Musers extends CI_Model {
 		return FALSE;
 	}
 
+	public function has_login($field = '') {
+		if (empty($field)) {
+			$result = $this->db->get('ci_sessions');
+			if ($result->num_rows() > 0) {
+				return TRUE;
+			}
+		} else {
+			$result = $this->db->select($field)
+				->from('ci_sessions')
+				->get();
+			if ($result->num_rows() > 0) {
+				$data = $result->row(0);
+				return $data->$field;
+			}
+		}
+		return FALSE;
+	}
+
 	/**
 	 * Delete user
 	 *

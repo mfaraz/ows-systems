@@ -13,7 +13,7 @@ class Reports extends HD_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->_data['title'] = 'Reports Management';
-		$this->load->model(array('mreports', 'musers', 'mcategories'));
+		$this->load->model(array('mreports', 'mcategories'));
 		$this->mreports->mis_report();
 	}
 

@@ -37,7 +37,7 @@ class Msales extends CI_Model {
 	 */
 	public function save_invoice() {
 		$this->_data = array(
-			'cruser' => $this->session->userdata('ci_id'),
+			'cruser' => $this->musers->has_login('sess_id'),
 			'crdate' => time()
 		);
 		$this->db->insert('ci_invoices', $this->_data);

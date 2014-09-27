@@ -1,4 +1,5 @@
 <?php
+header("Cache-Control: no-store, no-cache, must-revalidate");
 echo doctype('html5');
 ?>
 <html lang="en">
@@ -6,8 +7,8 @@ echo doctype('html5');
 		<meta charset="utf-8">
 		<?php
 		print stylesheets();
-		print site_title($title);
 		?>
+		<title><?php echo $title; ?></title>
 	</head>
 	<body class="login">
 		<div class="container">

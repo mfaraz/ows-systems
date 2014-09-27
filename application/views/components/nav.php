@@ -3,7 +3,7 @@
 		<nav class="navbar-collapse collapse">
 			<ul class="nav navbar-nav pull-left">
 				<?php
-				if ($this->session->userdata('mul_sales')):
+				if ($this->musers->has_login('mul_sales')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'sales' ? 'active' : '' ?>">
 						<?php
@@ -12,7 +12,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_deposits')):
+				if ($this->musers->has_login('mul_deposits')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'deposits' ? 'active' : '' ?>">
 						<?php
@@ -21,7 +21,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_products')):
+				if ($this->musers->has_login('mul_products')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'products' ? 'active' : '' ?>">
 						<?php
@@ -30,7 +30,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_categories')):
+				if ($this->musers->has_login('mul_categories')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'categories' ? 'active' : '' ?>">
 						<?php
@@ -39,7 +39,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_reports')):
+				if ($this->musers->has_login('mul_reports')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'reports' ? 'active' : '' ?>">
 						<?php
@@ -48,7 +48,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_users')):
+				if ($this->musers->has_login('mul_users')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'users' ? 'active' : '' ?>">
 						<?php
@@ -57,7 +57,7 @@
 					</li>
 					<?php
 				endif;
-				if ($this->session->userdata('mul_settings')):
+				if ($this->musers->has_login('mul_settings')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'settings' ? 'active' : '' ?>">
 						<?php

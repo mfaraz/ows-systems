@@ -112,7 +112,7 @@ $autoload['language'] = array();
   |
  */
 
-$autoload['model'] = array('msettings');
+$autoload['model'] = array('musers', 'msettings');
 
 
 /* End of file autoload.php */

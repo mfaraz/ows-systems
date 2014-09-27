@@ -16,6 +16,9 @@ class Mdeposits extends CI_Model {
 		if ($this->input->post('invoice_number')) {
 			$this->db->like('i.invoice_number', $this->input->post('invoice_number'));
 		}
+		if ($this->input->post('customer_phone')) {
+			$this->db->where('i.customer_phone', $this->input->post('customer_phone'));
+		}
 		return $this->db->select(array('i.iid', 'i.invoice_number', 'i.chash', 'i.customer_phone', 'i.cash_type', 'i.grand_total',
 					'i.deposit', 'i.balance', 'i.crdate', 'u.firstname'))
 				->from('ci_invoices i')
@@ -26,7 +29,7 @@ class Mdeposits extends CI_Model {
 
 	/**
 	 * Clear deposit after completed payment
-	 * 
+	 *
 	 * @param string $invoice_no
 	 * @return boolean
 	 */

@@ -1,4 +1,8 @@
-<!DOCTYPE HTML>
+<?php
+ignore_user_abort(true);
+header("Cache-Control: no-store, no-cache, must-revalidate");
+echo doctype('html5');
+?>
 <html lang="en-US">
 	<head>
 		<base href="<?php echo base_url(); ?>" />

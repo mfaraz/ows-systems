@@ -16,7 +16,7 @@ class HD_Controller extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->CI = & get_instance();
-		if (!$this->CI->session->userdata('ci_username')) {
+		if (!$this->musers->has_login()) {
 			redirect('login/');
 		}
 	}

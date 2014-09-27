@@ -51,6 +51,8 @@ class Invoices extends HD_Controller {
 				$balance = $grant_total - $deposit;
 				if ($this->input->post('deposit') < $cash_receive) {
 					$cash_exchange = $cash_receive - $deposit;
+				} else {
+					$cash_exchange = 0;
 				}
 			} else {
 				$deposit = 0;

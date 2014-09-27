@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2014 at 12:49 AM
+-- Generation Time: Sep 27, 2014 at 10:25 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `ci_categories` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
   `cruser` int(11) NOT NULL DEFAULT '0',
-  `mouser` int(11) DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(250) DEFAULT '',
   `crdate` int(11) NOT NULL DEFAULT '0',
@@ -37,16 +37,20 @@ CREATE TABLE IF NOT EXISTS `ci_categories` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `ci_categories`
 --
 
-INSERT INTO `ci_categories` (`cid`, `cruser`, `mouser`, `name`, `description`, `crdate`, `modate`, `status`) VALUES
-(1, 1, 0, 'Watches', '', 1406641477, 0, 1),
-(2, 1, 1, 'Optic Glasses', '', 1406641506, 1406642837, 1),
-(3, 1, 0, 'Accessories', '', 1406641506, 0, 1);
+INSERT INTO `ci_categories` (`cid`, `parent_id`, `cruser`, `name`, `description`, `crdate`, `modate`, `status`) VALUES
+(1, 0, 1, 'Watches', '', 1406641477, 0, 1),
+(2, 0, 1, 'Optic Glasses', '', 1406641506, 1406642837, 1),
+(3, 0, 1, 'Accessories', '', 1406641506, 0, 1),
+(4, 1, 1, 'Romanson', '', 1410274770, 0, 1),
+(5, 1, 1, 'Swiss', '', 1410274925, 0, 1),
+(7, 2, 1, 'Cate1', '', 1410369841, 0, 1),
+(8, 2, 1, 'Cate2', '', 1410369853, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -75,7 +79,14 @@ CREATE TABLE IF NOT EXISTS `ci_invoices` (
   PRIMARY KEY (`iid`),
   UNIQUE KEY `invoice_number_2` (`invoice_number`),
   KEY `invoice_number` (`invoice_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `ci_invoices`
+--
+
+INSERT INTO `ci_invoices` (`iid`, `invoice_number`, `chash`, `cruser`, `customer_phone`, `total`, `cash_receive`, `cash_type`, `discount`, `grand_total`, `deposit`, `balance`, `cash_exchange`, `crdate`, `modate`, `report`, `status`) VALUES
+(1, '000000000001', 'ef4788e79b999f6bd983b9293ae64d40', 1, '0978470847', 40.00, 20.00, 'US', '0', 40.00, 20.00, 20.00, 0.00, 1411787959, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -86,13 +97,21 @@ CREATE TABLE IF NOT EXISTS `ci_invoices` (
 CREATE TABLE IF NOT EXISTS `ci_invoice_details` (
   `idid` int(11) NOT NULL AUTO_INCREMENT,
   `iid` int(11) NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL DEFAULT '0',
   `cid` int(11) NOT NULL DEFAULT '0',
   `name` varchar(50) NOT NULL,
   `qty` smallint(4) NOT NULL DEFAULT '0',
   `unit_price` double(7,2) NOT NULL DEFAULT '0.00',
   `sub_total` double(7,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`idid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `ci_invoice_details`
+--
+
+INSERT INTO `ci_invoice_details` (`idid`, `iid`, `parent_id`, `cid`, `name`, `qty`, `unit_price`, `sub_total`) VALUES
+(1, 1, 1, 7, 'Product 1', 1, 40.00, 40.00);
 
 -- --------------------------------------------------------
 
@@ -102,9 +121,9 @@ CREATE TABLE IF NOT EXISTS `ci_invoice_details` (
 
 CREATE TABLE IF NOT EXISTS `ci_products` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
   `cid` int(11) NOT NULL DEFAULT '0',
   `cruser` int(11) NOT NULL DEFAULT '0',
-  `mouser` int(11) DEFAULT '0',
   `name` varchar(50) NOT NULL DEFAULT '',
   `unit_in_stocks` int(11) NOT NULL DEFAULT '0',
   `unit_in_sales` int(11) NOT NULL DEFAULT '0',
@@ -114,17 +133,15 @@ CREATE TABLE IF NOT EXISTS `ci_products` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ci_products`
 --
 
-INSERT INTO `ci_products` (`pid`, `cid`, `cruser`, `mouser`, `name`, `unit_in_stocks`, `unit_in_sales`, `description`, `crdate`, `modate`, `status`) VALUES
-(1, 1, 1, 1, 'Product1', 40, 15, '', 1406953723, 1409668471, 1),
-(2, 2, 1, 1, 'Product2', 40, 10, '', 1406953746, 1408839137, 1),
-(4, 1, 1, 0, 'Romanson', 29, 1, '', 1409665712, 0, 1),
-(5, 1, 1, 1, 'Swiss White', 5, 0, '', 1409665729, 1409668252, 1);
+INSERT INTO `ci_products` (`pid`, `parent_id`, `cid`, `cruser`, `name`, `unit_in_stocks`, `unit_in_sales`, `description`, `crdate`, `modate`, `status`) VALUES
+(1, 1, 4, 1, 'Product 1', 43, 7, '', 1410327786, 0, 1),
+(2, 1, 7, 1, 'LG G3', 50, 0, '', 1411788233, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -134,6 +151,7 @@ INSERT INTO `ci_products` (`pid`, `cid`, `cruser`, `mouser`, `name`, `unit_in_st
 
 CREATE TABLE IF NOT EXISTS `ci_reports` (
   `invoice_number` char(12) NOT NULL,
+  `customer_phone` char(30) NOT NULL,
   `invoice_seller` varchar(50) NOT NULL,
   `invoice_date` char(10) NOT NULL,
   `invoice_day` char(2) NOT NULL,
@@ -150,9 +168,8 @@ CREATE TABLE IF NOT EXISTS `ci_reports` (
 -- Dumping data for table `ci_reports`
 --
 
-INSERT INTO `ci_reports` (`invoice_number`, `invoice_seller`, `invoice_date`, `invoice_day`, `invoice_month`, `invoice_year`, `product_name`, `product_qty`, `product_price`, `product_total`, `category_name`) VALUES
-('000000000001', 'Man', '02-09-2014', '02', '09', 2014, 'Product1', 5, 5.00, 25.00, 'Watches'),
-('000000000002', 'Man', '03-09-2014', '03', '09', 2014, 'Product2', 5, 10.00, 50.00, 'Optic Glasses');
+INSERT INTO `ci_reports` (`invoice_number`, `customer_phone`, `invoice_seller`, `invoice_date`, `invoice_day`, `invoice_month`, `invoice_year`, `product_name`, `product_qty`, `product_price`, `product_total`, `category_name`) VALUES
+('000000000001', '0978470847', 'Man', '27-09-2014', '27', '09', 2014, 'Product 1', 1, 40.00, 40.00, 'Romanson');
 
 -- --------------------------------------------------------
 
@@ -164,7 +181,6 @@ CREATE TABLE IF NOT EXISTS `ci_roles` (
   `rid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(250) DEFAULT '',
-  `mul_welcome` tinyint(1) DEFAULT '0',
   `mul_sales` tinyint(1) DEFAULT '0',
   `mul_deposits` tinyint(1) DEFAULT '0',
   `mul_products` tinyint(1) DEFAULT '0',
@@ -177,15 +193,15 @@ CREATE TABLE IF NOT EXISTS `ci_roles` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ci_roles`
 --
 
-INSERT INTO `ci_roles` (`rid`, `name`, `description`, `mul_welcome`, `mul_sales`, `mul_deposits`, `mul_products`, `mul_categories`, `mul_reports`, `mul_users`, `mul_settings`, `crdate`, `modate`, `status`) VALUES
-(1, 'System Administrator', 'Super user in this systems, in which has full control permission to manage in the project systems.', 1, 1, 1, 1, 1, 1, 1, 1, 1406449163, 0, 1),
-(2, 'Cashier', '', 1, 1, 1, 0, 0, 0, 0, 0, 1406449163, 0, 1);
+INSERT INTO `ci_roles` (`rid`, `name`, `description`, `mul_sales`, `mul_deposits`, `mul_products`, `mul_categories`, `mul_reports`, `mul_users`, `mul_settings`, `crdate`, `modate`, `status`) VALUES
+(1, 'System Administrator', 'Super user in this systems, in which has full control permission to manage in the project systems.', 1, 1, 1, 1, 1, 1, 1, 1406449163, 0, 1),
+(2, 'Cashier', '', 1, 1, 0, 0, 0, 0, 0, 1406449163, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -194,23 +210,20 @@ INSERT INTO `ci_roles` (`rid`, `name`, `description`, `mul_welcome`, `mul_sales`
 --
 
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
-  `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `ip_address` varchar(45) NOT NULL DEFAULT '0',
-  `user_agent` varchar(120) NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
-  `user_data` text NOT NULL,
-  PRIMARY KEY (`session_id`),
-  KEY `last_activity_idx` (`last_activity`)
+  `sess_id` tinyint(1) NOT NULL DEFAULT '0',
+  `sess_username` varchar(50) NOT NULL DEFAULT '',
+  `sess_fullname` varchar(100) NOT NULL DEFAULT '',
+  `sess_role` varchar(50) NOT NULL DEFAULT '',
+  `mul_sales` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_products` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_categories` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_reports` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_deposits` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_users` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_settings` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sess_id`),
+  UNIQUE KEY `sess_username` (`sess_username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `ci_sessions`
---
-
-INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('889374767fa2164d90bc70d2c2c93d6a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36', 1409667820, 'a:14:{s:9:"user_data";s:0:"";s:5:"ci_id";s:1:"1";s:11:"ci_username";s:5:"admin";s:12:"ci_firstname";s:3:"Man";s:11:"ci_fullname";s:8:"Man Math";s:7:"ci_role";s:20:"System Administrator";s:11:"mul_welcome";s:1:"1";s:9:"mul_sales";s:1:"1";s:12:"mul_products";s:1:"1";s:14:"mul_categories";s:1:"1";s:11:"mul_reports";s:1:"1";s:12:"mul_deposits";s:1:"1";s:9:"mul_users";s:1:"1";s:12:"mul_settings";s:1:"1";}'),
-('aa930eb5d8cd5d72733c7f796cc69c61', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0', 1409665808, ''),
-('b80ca1974d71497e65a09a8f0494fdcf', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36', 1409661704, 'a:14:{s:9:"user_data";s:0:"";s:5:"ci_id";s:1:"1";s:11:"ci_username";s:5:"admin";s:12:"ci_firstname";s:3:"Man";s:11:"ci_fullname";s:8:"Man Math";s:7:"ci_role";s:20:"System Administrator";s:11:"mul_welcome";s:1:"1";s:9:"mul_sales";s:1:"1";s:12:"mul_products";s:1:"1";s:14:"mul_categories";s:1:"1";s:11:"mul_reports";s:1:"1";s:12:"mul_deposits";s:1:"1";s:9:"mul_users";s:1:"1";s:12:"mul_settings";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -220,19 +233,19 @@ INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activ
 
 CREATE TABLE IF NOT EXISTS `ci_settings` (
   `DEFAULT_COMPANY_NAME` varchar(250) NOT NULL DEFAULT '',
+  `DEFAULT_COMPANY_LOGO` varchar(250) NOT NULL,
   `DEFAULT_COMPANY_ADDRESS` tinytext NOT NULL,
   `DEFAULT_COMPANY_PHONE` varchar(250) NOT NULL DEFAULT '',
   `DEFAULT_USD_TO_KH` smallint(4) NOT NULL DEFAULT '4000',
-  `DEFAULT_PASSWORD` varchar(30) NOT NULL DEFAULT '123',
-  `DEFAULT_COMPANY_EMAIL` varchar(250) DEFAULT ''
+  `DISPLAY_CUSTOMER_PHONE` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ci_settings`
 --
 
-INSERT INTO `ci_settings` (`DEFAULT_COMPANY_NAME`, `DEFAULT_COMPANY_ADDRESS`, `DEFAULT_COMPANY_PHONE`, `DEFAULT_USD_TO_KH`, `DEFAULT_PASSWORD`, `DEFAULT_COMPANY_EMAIL`) VALUES
-('International Optics and watch shop', '#058, 7Markara, Stree, Group 10, Mondol2, Sangkat 4, Sihanouk Province', '098 933 510 / 034 933 510', 4000, '123', '');
+INSERT INTO `ci_settings` (`DEFAULT_COMPANY_NAME`, `DEFAULT_COMPANY_LOGO`, `DEFAULT_COMPANY_ADDRESS`, `DEFAULT_COMPANY_PHONE`, `DEFAULT_USD_TO_KH`, `DISPLAY_CUSTOMER_PHONE`) VALUES
+('International Optics and watch shop', 'logo.jpg', '#058, 7Markara, Stree, Group 10, Mondol2, Sangkat 4, Sihanouk Province', '098 933 510 / 034 933 510', 4000, 1);
 
 -- --------------------------------------------------------
 
@@ -255,14 +268,15 @@ CREATE TABLE IF NOT EXISTS `ci_users` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `ci_users`
 --
 
 INSERT INTO `ci_users` (`uid`, `rid`, `username`, `password`, `firstname`, `lastname`, `sex`, `email`, `phone`, `crdate`, `modate`, `status`) VALUES
-(1, 1, 'admin', 'df53c745fae51cb9b4a5ecef96e3fff7', 'Man', 'Math', 0, 'manmath4@gmail.com', '0978470847', 1406449163, 0, 1);
+(1, 1, 'admin', 'df53c745fae51cb9b4a5ecef96e3fff7', 'Man', 'Math', 0, 'manmath4@gmail.com', '0978470847', 1406449163, 1410367467, 1),
+(3, 2, 'marida', 'e39e69b03c79c81be2514d9983321aae', 'Marida', 'Hieng', 1, 'maridahieng@yahoo.com', '0979243513', 1410363579, 1411787109, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
