@@ -50,17 +50,10 @@ if (!defined('BASEPATH'))
 
 $active_group = 'default';
 $active_record = TRUE;
-if ($_SERVER['SERVER_NAME'] == 'local.ows.itservices.com') { // local
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'root';
-	$db['default']['password'] = '';
-	$db['default']['database'] = 'itservices_ows';
-} else { // live
-	$db['default']['hostname'] = 'mysql9.000webhost.com';
-	$db['default']['username'] = 'a7226690_ows';
-	$db['default']['password'] = 'a7226690_ows';
-	$db['default']['database'] = 'a7226690_ows';
-}
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'itservices_ows';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

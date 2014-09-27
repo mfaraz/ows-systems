@@ -33,7 +33,7 @@ class Invoices extends HD_Controller {
 			$total = $this->_data['sub_total'];
 
 			if ($cash_type == 'KH') {
-				$total = $total * USD_TO_KH;
+				$total = $total * $this->msettings->display_setting('DEFAULT_USD_TO_KH');
 			}
 
 			// Discount

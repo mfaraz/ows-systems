@@ -16,27 +16,8 @@ class HD_Controller extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->CI = & get_instance();
-		$this->createConstants();
 		if (!$this->CI->session->userdata('ci_username')) {
 			redirect('login/');
-		}
-	}
-
-	/**
-	 * Create default constants
-	 */
-	function createConstants() {
-		$this->load->model('msettings');
-		$constants = $this->msettings->select_setting();
-		if ($constants->num_rows() > 0) {
-			$constants->result_array();
-			$constant = $constants->result_array[0];
-			define('COMPANY_NAME', $constant['DEFAULT_COMPANY_NAME']);
-			define('COMPANY_ADDRESS', $constant['DEFAULT_COMPANY_ADDRESS']);
-			define('COMPANY_PHONE', $constant['DEFAULT_COMPANY_PHONE']);
-			define('USD_TO_KH', $constant['DEFAULT_USD_TO_KH']);
-			define('DEFAULT_COMPANY_LOGO', $constant['DEFAULT_COMPANY_LOGO']);
-			define('COMPANY_EMAIL', $constant['DEFAULT_COMPANY_EMAIL']);
 		}
 	}
 

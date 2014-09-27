@@ -130,17 +130,15 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										<a data-toggle="collapse" class="accordion-toggle" href="#collapseSeven">
-											Email
+											Column on Report
 										</a>
 									</h3>
 								</div>
 								<div id="collapseSeven" class="panel-collapse in">
 									<div class="panel-body">
 										<div class="form-group">
-											<div class="col-sm-12 input-group">
-												<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-												<input type="text" name="DEFAULT_COMPANY_EMAIL" class="form-control
-													   input-sm" value="<?php echo set_value('DEFAULT_COMPANY_EMAIL', $setting['DEFAULT_COMPANY_EMAIL']); ?>" placeholder="username@abc.com"	/>
+											<div class="col-sm-12">
+												<div class="checkbox"><input type="checkbox" name="DISPLAY_CUSTOMER_PHONE" value="1" <?php echo set_checkbox('DISPLAY_CUSTOMER_PHONE', 1, ($setting['DISPLAY_CUSTOMER_PHONE'] == 1) ? TRUE : FALSE); ?>>Display column <strong>Customer Phone</strong> on report</div>
 											</div>
 										</div>
 									</div>

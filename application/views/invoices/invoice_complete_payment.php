@@ -1,4 +1,4 @@
-<div class="print-invoice">
+﻿<div class="print-invoice">
 	<?php
 	if ($invoice_items) {
 		foreach ($invoice_items as $item) {
@@ -90,12 +90,12 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="table table-header visible-print">
+		<table class="table table-header">
 			<tr>
 				<td>
-					សូមអរគុណ សូមអញ្ជើញមកម្ដងទៀត
-					Thank you, please come again!
-					ទំនិញទិញហើយមិនអាចប្ដូរវិញបានទេ
+					សូមអរគុណ សូមអញ្ជើញមកម្ដងទៀត <br />
+					Thank you, please come again!<br />
+					ទំនិញទិញហើយមិនអាចប្ដូរវិញបានទេ <br />
 					Goods sold not returnable
 				</td>
 			</tr>

@@ -17,11 +17,7 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-if ($_SERVER['SERVER_NAME'] === 'local.ows.itservices.com') { // local
-	$config['base_url'] = 'http://local.ows.itservices.com/';
-} else {
-	$config['base_url'] = 'http://ows.itservices.host56.com/';
-}
+$config['base_url'] = 'http://local.ows.itservices.com/';
 
 /*
   |--------------------------------------------------------------------------

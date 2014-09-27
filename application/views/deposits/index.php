@@ -12,7 +12,7 @@
 			?>
 			<div class="form-group">
 				<label class="sr-only" for="invoice_number">Invoice Number</label>
-				<input type="text" class="form-control input-sm" id="invoice_number" name="invoice_number" value="<?php echo set_value('invoice_number'); ?>" placeholder="Invoice Number" pattern=".{1, 12}" title="Allow enter between 1 to 12 character(s)">
+				<input type="text" class="form-control input-sm" id="invoice_number" name="invoice_number" value="<?php echo set_value('invoice_number'); ?>" placeholder="Invoice Number" pattern=".{1,12}" title="Allow enter between 1 to 12 character(s)">
 			</div>
 			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
 			</form>
