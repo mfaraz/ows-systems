@@ -19,7 +19,7 @@ class Invoices extends HD_Controller {
 		$this->_data['invoice_items'] = $this->msales->check_purchase();
 		$this->_data['sub_total'] = $this->msales->get_total();
 
-		$this->form_validation->set_rules('customer_phone', 'Customer Phone', 'required|trim|min_length[9]|numeric');
+		$this->form_validation->set_rules('customer', 'Customer', 'trim');
 		$this->form_validation->set_rules('cash_receive', 'Cash Received', 'required|trim|numeric');
 		$this->form_validation->set_rules('cash_type', '', 'trim');
 		$this->form_validation->set_rules('discount', 'Discount', 'trim|numeric|max_length[3]');
@@ -64,9 +64,9 @@ class Invoices extends HD_Controller {
 				}
 			}
 
-			$customer_phone = $this->input->post('customer_phone');
+			$customer = $this->input->post('customer');
 			$data = array(
-				'customer_phone' => $customer_phone,
+				'customer' => $customer,
 				'total' => $total,
 				'cash_receive' => $cash_receive,
 				'cash_type' => $cash_type,

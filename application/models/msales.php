@@ -133,7 +133,7 @@ class Msales extends CI_Model {
 		} else {
 			$this->db->where('i.iid', 0);
 		}
-		$this->db->select(array('d.idid', 'i.invoice_number', 'i.customer_phone', 'i.total',
+		$this->db->select(array('d.idid', 'i.invoice_number', 'i.customer', 'i.total',
 				'i.cash_receive', 'i.cash_type', 'i.discount', 'i.grand_total', 'i.deposit', 'i.balance',
 				'i.cash_exchange', 'i.crdate', 'i.modate', 'i.grand_total', 'd.cid', 'd.name', 'd.qty',
 				'd.unit_price', 'd.sub_total'))

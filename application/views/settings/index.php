@@ -33,8 +33,7 @@
 									<div class="panel-body">
 										<div class="form-group">
 											<div class="col-sm-12 input-group">
-												<span class="input-group-addon"><span class="glyphicon
-																					  glyphicon-tower"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-tower"></span></span>
 												<input type="text" name="DEFAULT_COMPANY_NAME" value="<?php echo set_value('DEFAULT_COMPANY_NAME', $setting['DEFAULT_COMPANY_NAME']) ?>" class="form-control input-sm" pattern=".{3,50}" title="Allow enter between 3 to 50 characters" required />
 											</div>
 										</div>
@@ -53,11 +52,8 @@
 									<div class="panel-body">
 										<div class="form-group">
 											<div class="col-sm-12 input-group">
-												<span class="input-group-addon"><span class="glyphicon
-																					  glyphicon-home"></span></span>
-												<textarea name="DEFAULT_COMPANY_ADDRESS" class="form-control
-														  input-sm" required><?php echo set_value('DEFAULT_COMPANY_ADDRESS', $setting['DEFAULT_COMPANY_ADDRESS'])
-			?></textarea>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+												<textarea name="DEFAULT_COMPANY_ADDRESS" class="form-control input-sm" required><?php echo set_value('DEFAULT_COMPANY_ADDRESS', $setting['DEFAULT_COMPANY_ADDRESS']); ?></textarea>
 											</div>
 										</div>
 									</div>
@@ -75,11 +71,8 @@
 									<div class="panel-body">
 										<div class="form-group">
 											<div class="col-sm-12 input-group">
-												<span class="input-group-addon"><span class="glyphicon
-																					  glyphicon-phone-alt"></span></span>
-												<input type="text" name="DEFAULT_COMPANY_PHONE" class="form-control
-													   input-sm" value="<?php echo set_value('DEFAULT_COMPANY_PHONE', $setting['DEFAULT_COMPANY_PHONE'])
-			?>" required />
+												<span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
+												<input type="text" name="DEFAULT_COMPANY_PHONE" class="form-control input-sm" value="<?php echo set_value('DEFAULT_COMPANY_PHONE', $setting['DEFAULT_COMPANY_PHONE']); ?>" required />
 											</div>
 										</div>
 									</div>
@@ -118,8 +111,7 @@
 									<div class="panel-body">
 										<div class="form-group">
 											<div class="col-sm-12 input-group">
-												<span class="input-group-addon"><span class="glyphicon
-																					  glyphicon-usd"></span></span>
+												<span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
 												<input type="text" name="DEFAULT_USD_TO_KH" id="currency" value="<?php echo set_value('DEFAULT_USD_TO_KH', $setting['DEFAULT_USD_TO_KH']); ?>" class="form-control input-sm" pattern=".{4,8}" title="Allow enter between 4 to 8 characters" placeholder="4000" required /><span class="input-group-addon">Riels</span>
 											</div>
 										</div>
@@ -138,7 +130,7 @@
 									<div class="panel-body">
 										<div class="form-group">
 											<div class="col-sm-12">
-												<div class="checkbox"><input type="checkbox" name="DISPLAY_CUSTOMER_PHONE" value="1" <?php echo set_checkbox('DISPLAY_CUSTOMER_PHONE', 1, ($setting['DISPLAY_CUSTOMER_PHONE'] == 1) ? TRUE : FALSE); ?>>Display column <strong>Customer Phone</strong> on report</div>
+												<div class="checkbox"><input type="checkbox" name="DISPLAY_CUSTOMER" value="1" <?php echo set_checkbox('DISPLAY_CUSTOMER', 1, ($setting['DISPLAY_CUSTOMER'] == 1) ? TRUE : FALSE); ?>>Display column <strong>Customer</strong> on report</div>
 											</div>
 										</div>
 									</div>

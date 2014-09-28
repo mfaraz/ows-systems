@@ -2,8 +2,8 @@
 	<?php
 	if ($invoice_items) {
 		foreach ($invoice_items as $item) {
-			$customer_phone = $item->customer_phone ? $item->customer_phone : '?';
-			$cashier = $this->session->userdata('ci_firstname');
+			$customer = $item->customer ? $item->customer : 'Unknown';
+			$cashier = ucfirst($this->musers->has_login('sess_username'));
 			$invoice_date = mdate('%d-%m-%Y %H:%i', $item->crdate);
 			$invoice_number = $item->invoice_number;
 			$discount = $item->discount !== '0' ? $item->discount . '%' : '0';
@@ -35,11 +35,11 @@
 			<tr>
 				<td colspan="2" class="hidden-print align-left" style="width: 50%;">
 					Cashier: <?php echo $cashier; ?><br>
-					Customer: <?php echo $customer_phone ?>
+					Customer: <?php echo $customer ?>
 				</td>
 				<td colspan="2" class="visible-print align-left" style="width: 50%;">
 					Cashier: <?php echo $cashier; ?><br>
-					Customer: <?php echo $customer_phone ?>
+					Customer: <?php echo $customer ?>
 				</td>
 				<td colspan="2" class="align-left">
 					Date: <?php echo $invoice_date; ?><br>

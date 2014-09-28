@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2014 at 04:48 PM
+-- Generation Time: Sep 28, 2014 at 01:02 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ci_invoices` (
   `invoice_number` char(12) DEFAULT '000000000000',
   `chash` char(32) DEFAULT NULL,
   `cruser` int(11) NOT NULL DEFAULT '0',
-  `customer_phone` varchar(30) DEFAULT '0',
+  `customer` varchar(50) DEFAULT NULL,
   `total` double(10,2) NOT NULL DEFAULT '0.00',
   `cash_receive` double(10,2) DEFAULT '0.00',
   `cash_type` char(2) NOT NULL,
@@ -79,19 +79,14 @@ CREATE TABLE IF NOT EXISTS `ci_invoices` (
   PRIMARY KEY (`iid`),
   UNIQUE KEY `invoice_number_2` (`invoice_number`),
   KEY `invoice_number` (`invoice_number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `ci_invoices`
 --
 
-INSERT INTO `ci_invoices` (`iid`, `invoice_number`, `chash`, `cruser`, `customer_phone`, `total`, `cash_receive`, `cash_type`, `discount`, `grand_total`, `deposit`, `balance`, `cash_exchange`, `crdate`, `modate`, `report`, `status`) VALUES
-(1, '000000000001', 'ef4788e79b999f6bd983b9293ae64d40', 1, '0', 0.00, 0.00, '', '0', 0.00, 0.00, 0.00, 0.00, 1409680556, 0, 0, 0),
-(2, '000000000002', '855816ffe149aba178f98abb44171578', 1, '0', 0.00, 0.00, '', '0', 0.00, 0.00, 0.00, 0.00, 1409746009, 0, 0, 0),
-(3, '000000000003', 'bfc9687ee2ff86051cef907b8f79a9cb', 1, '0', 0.00, 0.00, '', '0', 0.00, 0.00, 0.00, 0.00, 1409758260, 0, 0, 0),
-(4, '000000000004', 'c756920f483355bc029d56e394058c77', 1, '0', 0.00, 0.00, '', '0', 0.00, 0.00, 0.00, 0.00, 1410330016, 0, 0, 0),
-(5, '000000000005', 'e1bbe9030590253dc1c87f25c9bc78e8', 1, '0978570847', 25.00, 50.00, 'US', '0', 25.00, 0.00, 0.00, 25.00, 1410372873, 0, 1, 1),
-(6, '000000000006', 'f17cbd33907fd879498a2a99ff12e791', 1, '0', 0.00, 0.00, '', '0', 0.00, 0.00, 0.00, 0.00, 1410373305, 0, 0, 0);
+INSERT INTO `ci_invoices` (`iid`, `invoice_number`, `chash`, `cruser`, `customer`, `total`, `cash_receive`, `cash_type`, `discount`, `grand_total`, `deposit`, `balance`, `cash_exchange`, `crdate`, `modate`, `report`, `status`) VALUES
+(1, '000000000001', 'ef4788e79b999f6bd983b9293ae64d40', 1, '0978470847', 40.00, 20.00, 'US', '0', 40.00, 20.00, 20.00, 0.00, 1411787959, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,19 +104,14 @@ CREATE TABLE IF NOT EXISTS `ci_invoice_details` (
   `unit_price` double(7,2) NOT NULL DEFAULT '0.00',
   `sub_total` double(7,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`idid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `ci_invoice_details`
 --
 
 INSERT INTO `ci_invoice_details` (`idid`, `iid`, `parent_id`, `cid`, `name`, `qty`, `unit_price`, `sub_total`) VALUES
-(1, 1, 0, 1, 'Product2', 5, 25.00, 125.00),
-(2, 2, 0, 1, 'Product1', 5, 25.00, 125.00),
-(3, 3, 0, 1, 'Product2', 5, 5.00, 25.00),
-(4, 4, 1, 4, 'Product 1', 5, 25.00, 125.00),
-(5, 5, 1, 7, 'Product 1', 5, 5.00, 25.00),
-(6, 6, 1, 7, 'Product 1', 2, 5.00, 10.00);
+(1, 1, 1, 7, 'Product 1', 1, 40.00, 40.00);
 
 -- --------------------------------------------------------
 
@@ -143,14 +133,15 @@ CREATE TABLE IF NOT EXISTS `ci_products` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`pid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ci_products`
 --
 
 INSERT INTO `ci_products` (`pid`, `parent_id`, `cid`, `cruser`, `name`, `unit_in_stocks`, `unit_in_sales`, `description`, `crdate`, `modate`, `status`) VALUES
-(1, 1, 4, 1, 'Product 1', 45, 5, '', 1410327786, 0, 1);
+(1, 1, 4, 1, 'Product 1', 43, 7, '', 1410327786, 0, 1),
+(2, 1, 7, 1, 'LG G3', 50, 0, '', 1411788233, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -160,7 +151,7 @@ INSERT INTO `ci_products` (`pid`, `parent_id`, `cid`, `cruser`, `name`, `unit_in
 
 CREATE TABLE IF NOT EXISTS `ci_reports` (
   `invoice_number` char(12) NOT NULL,
-  `customer_phone` char(30) NOT NULL,
+  `customer` varchar(50) NOT NULL,
   `invoice_seller` varchar(50) NOT NULL,
   `invoice_date` char(10) NOT NULL,
   `invoice_day` char(2) NOT NULL,
@@ -177,10 +168,8 @@ CREATE TABLE IF NOT EXISTS `ci_reports` (
 -- Dumping data for table `ci_reports`
 --
 
-INSERT INTO `ci_reports` (`invoice_number`, `customer_phone`, `invoice_seller`, `invoice_date`, `invoice_day`, `invoice_month`, `invoice_year`, `product_name`, `product_qty`, `product_price`, `product_total`, `category_name`) VALUES
-('000000000001', '', 'Man', '02-09-2014', '02', '09', 2014, 'Product1', 5, 5.00, 25.00, 'Watches'),
-('000000000002', '', 'Man', '03-09-2014', '03', '09', 2014, 'Product2', 5, 10.00, 50.00, 'Optic Glasses'),
-('000000000005', '0978570847', 'Man', '11-09-2014', '11', '09', 2014, 'Product 1', 5, 5.00, 25.00, 'Romanson');
+INSERT INTO `ci_reports` (`invoice_number`, `customer`, `invoice_seller`, `invoice_date`, `invoice_day`, `invoice_month`, `invoice_year`, `product_name`, `product_qty`, `product_price`, `product_total`, `category_name`) VALUES
+('000000000001', '0978470847', 'Man', '27-09-2014', '27', '09', 2014, 'Product 1', 1, 40.00, 40.00, 'Romanson');
 
 -- --------------------------------------------------------
 
@@ -221,24 +210,27 @@ INSERT INTO `ci_roles` (`rid`, `name`, `description`, `mul_sales`, `mul_deposits
 --
 
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
-  `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `ip_address` varchar(45) NOT NULL DEFAULT '0',
-  `user_agent` varchar(120) NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
-  `user_data` text NOT NULL,
-  PRIMARY KEY (`session_id`),
-  KEY `last_activity_idx` (`last_activity`)
+  `sess_id` tinyint(1) NOT NULL DEFAULT '0',
+  `sess_username` varchar(50) NOT NULL DEFAULT '',
+  `sess_fullname` varchar(100) NOT NULL DEFAULT '',
+  `sess_role` varchar(50) NOT NULL DEFAULT '',
+  `mul_sales` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_products` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_categories` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_reports` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_deposits` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_users` tinyint(1) NOT NULL DEFAULT '0',
+  `mul_settings` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`sess_id`),
+  UNIQUE KEY `sess_username` (`sess_username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ci_sessions`
 --
 
-INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('029ec97ee122535e5e80cca2988ac0a1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36', 1410599868, 'a:13:{s:9:"user_data";s:0:"";s:5:"ci_id";s:1:"1";s:11:"ci_username";s:5:"admin";s:12:"ci_firstname";s:3:"Man";s:11:"ci_fullname";s:8:"Man Math";s:7:"ci_role";s:20:"System Administrator";s:9:"mul_sales";s:1:"1";s:12:"mul_products";s:1:"1";s:14:"mul_categories";s:1:"1";s:11:"mul_reports";s:1:"1";s:12:"mul_deposits";s:1:"1";s:9:"mul_users";s:1:"1";s:12:"mul_settings";s:1:"1";}'),
-('0c5351c3cce9fdfa67d767f4f85bb09a', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36', 1410599874, 'a:14:{s:9:"user_data";s:0:"";s:5:"ci_id";s:1:"1";s:11:"ci_username";s:5:"admin";s:12:"ci_firstname";s:3:"Man";s:11:"ci_fullname";s:8:"Man Math";s:7:"ci_role";s:20:"System Administrator";s:9:"mul_sales";s:1:"1";s:12:"mul_products";s:1:"1";s:14:"mul_categories";s:1:"1";s:11:"mul_reports";s:1:"1";s:12:"mul_deposits";s:1:"1";s:9:"mul_users";s:1:"1";s:12:"mul_settings";s:1:"1";s:17:"flash:old:message";s:254:"<div class="hidden-print alert alert-success alert-dismissable"><button type="button"\r\n		class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="glyphicon glyphicon-ok-circle"></span>&nbsp;Company settings has been saved!</div>";}'),
-('17dbf4e3c3c2e1ef7303ba34f30d5c23', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36', 1410601672, ''),
-('752c014afde4cad2b3790b3edb610813', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36', 1410601352, 'a:14:{s:9:"user_data";s:0:"";s:5:"ci_id";s:1:"1";s:11:"ci_username";s:5:"admin";s:12:"ci_firstname";s:3:"Man";s:11:"ci_fullname";s:8:"Man Math";s:7:"ci_role";s:20:"System Administrator";s:9:"mul_sales";s:1:"1";s:12:"mul_products";s:1:"1";s:14:"mul_categories";s:1:"1";s:11:"mul_reports";s:1:"1";s:12:"mul_deposits";s:1:"1";s:9:"mul_users";s:1:"1";s:12:"mul_settings";s:1:"1";s:17:"flash:old:message";s:254:"<div class="hidden-print alert alert-success alert-dismissable"><button type="button"\r\n		class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="glyphicon glyphicon-ok-circle"></span>&nbsp;Company settings has been saved!</div>";}');
+INSERT INTO `ci_sessions` (`sess_id`, `sess_username`, `sess_fullname`, `sess_role`, `mul_sales`, `mul_products`, `mul_categories`, `mul_reports`, `mul_deposits`, `mul_users`, `mul_settings`) VALUES
+(1, 'admin', 'Man Math', 'System Administrator', 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -252,14 +244,14 @@ CREATE TABLE IF NOT EXISTS `ci_settings` (
   `DEFAULT_COMPANY_ADDRESS` tinytext NOT NULL,
   `DEFAULT_COMPANY_PHONE` varchar(250) NOT NULL DEFAULT '',
   `DEFAULT_USD_TO_KH` smallint(4) NOT NULL DEFAULT '4000',
-  `DISPLAY_CUSTOMER_PHONE` tinyint(1) NOT NULL DEFAULT '0'
+  `DISPLAY_CUSTOMER` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ci_settings`
 --
 
-INSERT INTO `ci_settings` (`DEFAULT_COMPANY_NAME`, `DEFAULT_COMPANY_LOGO`, `DEFAULT_COMPANY_ADDRESS`, `DEFAULT_COMPANY_PHONE`, `DEFAULT_USD_TO_KH`, `DISPLAY_CUSTOMER_PHONE`) VALUES
+INSERT INTO `ci_settings` (`DEFAULT_COMPANY_NAME`, `DEFAULT_COMPANY_LOGO`, `DEFAULT_COMPANY_ADDRESS`, `DEFAULT_COMPANY_PHONE`, `DEFAULT_USD_TO_KH`, `DISPLAY_CUSTOMER`) VALUES
 ('International Optics and watch shop', 'logo.jpg', '#058, 7Markara, Stree, Group 10, Mondol2, Sangkat 4, Sihanouk Province', '098 933 510 / 034 933 510', 4000, 1);
 
 -- --------------------------------------------------------
@@ -291,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `ci_users` (
 
 INSERT INTO `ci_users` (`uid`, `rid`, `username`, `password`, `firstname`, `lastname`, `sex`, `email`, `phone`, `crdate`, `modate`, `status`) VALUES
 (1, 1, 'admin', 'df53c745fae51cb9b4a5ecef96e3fff7', 'Man', 'Math', 0, 'manmath4@gmail.com', '0978470847', 1406449163, 1410367467, 1),
-(3, 2, 'marida123', '8918d61b22b490decd25971143130064', 'Maridadddd', 'Hieng', 1, 'maridahieng@yahoo.com', '0979243513', 1410363579, 1410365773, 1);
+(3, 2, 'marida', 'e39e69b03c79c81be2514d9983321aae', 'Marida', 'Hieng', 1, 'maridahieng@yahoo.com', '0979243513', 1410363579, 1411787109, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

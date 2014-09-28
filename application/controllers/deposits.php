@@ -13,7 +13,7 @@ class Deposits extends HD_Controller {
 
 	public function index() {
 		$this->form_validation->set_rules('invoice_number', '', 'trim|min_length[1]|max_length[12]');
-		$this->form_validation->set_rules('customer_phone', '', 'trim|min_length[1]|max_length[15]');
+		$this->form_validation->set_rules('customer', '', 'trim');
 		$this->form_validation->run();
 		$this->_data['deposits'] = $this->mdeposits->select_deposit();
 		$this->load->view('index', $this->_data);

@@ -4,7 +4,7 @@
 			<th>N&ordm;</th>
 			<th>Invoice Number</th>
 			<?php
-			if (!empty($this->msettings->display_setting('DISPLAY_CUSTOMER_PHONE'))) {
+			if (!empty($this->msettings->display_setting('DISPLAY_CUSTOMER'))) {
 				echo '<th>Customer</th>';
 			}
 			?>
@@ -27,8 +27,8 @@
 					<td><?php echo $i++; ?></td>
 					<td><?php echo $report->invoice_number; ?></td>
 					<?php
-					if (!empty($this->msettings->display_setting('DISPLAY_CUSTOMER_PHONE'))) {
-						echo '<td>' . $report->customer_phone . '</td>';
+					if (!empty($this->msettings->display_setting('DISPLAY_CUSTOMER'))) {
+						echo '<td>' . $report->customer . '</td>';
 					}
 					?>
 					<td><?php echo $report->invoice_date; ?></td>

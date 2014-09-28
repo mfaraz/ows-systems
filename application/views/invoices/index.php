@@ -19,14 +19,12 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<div class="form-group <?php echo form_is_error('customer_phone'); ?>">
-							<label for="customer_phone" class="control-label col-sm-3">Customer Phone <span
-									class="required">*</span></label>
+						<div class="form-group <?php echo form_is_error('customer'); ?>">
+							<label for="customer" class="control-label col-sm-3">Customer</label>
 							<div class="col-md-9">
-								<input type="text" name="customer_phone" id="customer_phone" class="form-control input-sm" value="<?php echo set_value('customer_phone'); ?>" pattern=".{9,30}" title="Allow enter between 9 to 30 characters" required />
-								<?php echo form_error('customer_phone'); ?>
-								<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> Do
-									not include space for phone number!</p>
+								<input type="text" name="customer" id="customer" class="form-control input-sm" value="<?php echo set_value('customer'); ?>" pattern=".{9,30}" title="Allow enter between 1 to 50 characters" />
+								<?php echo form_error('customer'); ?>
+								<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> Customer Name or Phone Number!</p>
 							</div>
 						</div>
 						<div class="form-group <?php echo form_is_error('cash_receive'); ?>">

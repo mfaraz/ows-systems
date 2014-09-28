@@ -15,8 +15,8 @@
 				<input type="text" class="form-control input-sm" id="invoice_number" name="invoice_number" value="<?php echo set_value('invoice_number'); ?>" placeholder="Invoice Number" pattern=".{1,12}" title="Allow enter between 1 to 12 character(s)">
 			</div>
 			<div class="form-group">
-				<label class="sr-only" for="customer_phone">Customer Phone</label>
-				<input type="text" class="form-control input-sm" id="customer_phone" name="customer_phone" value="<?php echo set_value('customer_phone'); ?>" placeholder="Customer Phone" pattern=".{9,15}" title="Allow enter between 9 to 15 character(s)">
+				<label class="sr-only" for="customer">Customer</label>
+				<input type="text" class="form-control input-sm" id="customer" name="customer" value="<?php echo set_value('customer'); ?>" placeholder="Customer" pattern=".{1,50}" title="Allow enter between 1 to 50 character(s)">
 			</div>
 			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
 			</form>
@@ -45,7 +45,7 @@
 							<td><?php echo $i++; ?></td>
 							<td><?php echo $deposit->invoice_number; ?></td>
 							<td><?php echo $deposit->firstname; ?></td>
-							<td><?php echo $deposit->customer_phone; ?></td>
+							<td><?php echo $deposit->customer; ?></td>
 							<td><?php
 								echo $deposit->cash_type == 'US' ? '$' . $deposit->grand_total :
 									$deposit->grand_total . '៛';

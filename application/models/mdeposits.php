@@ -16,10 +16,10 @@ class Mdeposits extends CI_Model {
 		if ($this->input->post('invoice_number')) {
 			$this->db->like('i.invoice_number', $this->input->post('invoice_number'));
 		}
-		if ($this->input->post('customer_phone')) {
-			$this->db->where('i.customer_phone', $this->input->post('customer_phone'));
+		if ($this->input->post('customer')) {
+			$this->db->like('i.customer', $this->input->post('customer'));
 		}
-		return $this->db->select(array('i.iid', 'i.invoice_number', 'i.chash', 'i.customer_phone', 'i.cash_type', 'i.grand_total',
+		return $this->db->select(array('i.iid', 'i.invoice_number', 'i.chash', 'i.customer', 'i.cash_type', 'i.grand_total',
 					'i.deposit', 'i.balance', 'i.crdate', 'u.firstname'))
 				->from('ci_invoices i')
 				->join('ci_users u', 'u.uid = i.cruser')

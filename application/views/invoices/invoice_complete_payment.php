@@ -2,7 +2,7 @@
 	<?php
 	if ($invoice_items) {
 		foreach ($invoice_items as $item) {
-			$customer_phone = $item->customer_phone ? $item->customer_phone : '?';
+			$customer = $item->customer ? $item->customer : '?';
 			$cashier = $this->session->userdata('ci_firstname');
 			$invoice_date = $item->modate != 0 ? mdate('%d-%m-%Y %H:%i', $item->modate) : '?';
 			$invoice_number = $item->invoice_number;
@@ -31,11 +31,11 @@
 			<tr>
 				<td colspan="2" class="hidden-print align-left" style="width: 50%;">
 					Cashier: <?php echo $cashier; ?><br>
-					Customer: <?php echo $customer_phone ?>
+					Customer: <?php echo $customer ?>
 				</td>
 				<td colspan="2" class="visible-print align-left" style="width: 50%;">
 					Cashier: <?php echo $cashier; ?><br>
-					Customer: <?php echo $customer_phone ?>
+					Customer: <?php echo $customer ?>
 				</td>
 				<td colspan="2" class="align-left">
 					Date: <?php echo $invoice_date; ?><br>

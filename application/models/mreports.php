@@ -16,7 +16,7 @@ class Mreports extends CI_Model {
 	 * MIS report
 	 */
 	public function mis_report() {
-		$this->db->select(array('i.iid', 'i.invoice_number', 'i.crdate AS invoice_date', 'i.customer_phone',
+		$this->db->select(array('i.iid', 'i.invoice_number', 'i.crdate AS invoice_date', 'i.customer',
 				'u.firstname AS invoice_seller', 'p.name AS product_name', 'd.qty AS product_qty',
 				'd.unit_price AS product_price', 'd.sub_total AS product_total', 'c.name AS category_name'))
 			->from('ci_invoices i')
@@ -32,7 +32,7 @@ class Mreports extends CI_Model {
 			foreach ($result->result() as $arr) {
 				$this->_data = array(
 					'invoice_number' => $arr->invoice_number,
-					'customer_phone' => $arr->customer_phone,
+					'customer' => $arr->customer,
 					'invoice_seller' => $arr->invoice_seller,
 					'invoice_date' => mdate('%d-%m-%Y', $arr->invoice_date),
 					'invoice_day' => mdate('%d', $arr->invoice_date),
