@@ -8,16 +8,31 @@ class Invoices extends HD_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->_data['title'] = 'Invoice Management';
-		$this->load->model(array('msales', 'mdeposits'));
+		$this->load->model(array('minvoices', 'msales', 'mdeposits'));
+	}
+
+	public function index() {
+		$this->form_validation->set_rules('invoice_number', '', 'trim');
+		$this->form_validation->set_rules('customer', '', 'trim');
+		$per_page = (int) $this->msettings->display_setting('DEFAULT_PAGINATION');
+
+		$this->form_validation->run();
+		$this->_data['invoices'] = $this->minvoices->findAllInvoices($per_page, $this->uri->segment(3));
+		$this->_data['total_invoices'] = $this->minvoices->countAllInvoices();
+		$this->_data['total_deposits'] = $this->minvoices->countAllInvoicesDeposit();
+		page_browser(base_url() . 'invoices/index/', $this->_data['total_invoices'], $per_page);
+		$this->load->view('index', $this->_data);
 	}
 
 	/**
-	 * Load invoice
+	 * Load invoice preparation for printing
 	 */
-	public function index() {
+	public function prepare_invoice() {
 		// check in case invoice exist
-		$this->_data['invoice_items'] = $this->msales->check_purchase();
-		$this->_data['sub_total'] = $this->msales->get_total();
+		$chash = $this->uri->segment(3);
+		$this->_data['invoice_items'] = $this->msales->check_purchase($chash);
+		$this->_data['sub_total'] = $this->msales->get_total($this->uri->segment(4));
+		$this->_data['data'] = $this->msales->get_customer($chash);
 
 		$this->form_validation->set_rules('customer', 'Customer', 'trim');
 		$this->form_validation->set_rules('cash_receive', 'Cash Received', 'required|trim|numeric');
@@ -48,6 +63,7 @@ class Invoices extends HD_Controller {
 			// Deposit
 			if ($this->input->post('deposit')) {
 				$deposit = $this->input->post('deposit');
+				$modate = time();
 				$balance = $grant_total - $deposit;
 				if ($this->input->post('deposit') < $cash_receive) {
 					$cash_exchange = $cash_receive - $deposit;
@@ -56,6 +72,7 @@ class Invoices extends HD_Controller {
 				}
 			} else {
 				$deposit = 0;
+				$modate = 0;
 				$balance = 0;
 				if ($cash_receive > $grant_total) {
 					$cash_exchange = $cash_receive - $grant_total;
@@ -64,7 +81,7 @@ class Invoices extends HD_Controller {
 				}
 			}
 
-			$customer = $this->input->post('customer');
+			$customer = $this->input->post('customer') != '' ? $this->input->post('customer') : 'Walk In Customer';
 			$data = array(
 				'customer' => $customer,
 				'total' => $total,
@@ -74,14 +91,15 @@ class Invoices extends HD_Controller {
 				'grand_total' => $grant_total,
 				'deposit' => $deposit,
 				'balance' => $balance,
-				'cash_exchange' => $cash_exchange
+				'cash_exchange' => $cash_exchange,
+				'modate' => $modate
 			);
 
 			if ($this->msales->update_invoice($data)) {
 				$this->session->set_flashdata('message', alert_message("Invoice is ready for printing!", 'success'));
 			}
 
-			redirect('invoices/');
+			redirect('invoices/prepare_invoice');
 		}
 	}
 

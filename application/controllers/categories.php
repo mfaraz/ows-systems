@@ -28,7 +28,6 @@ class Categories extends HD_Controller {
 
 		$this->_data['categories'] = $this->mcategories->select_category();
 		$this->_data['brands'] = $this->mcategories->select_brand();
-		$this->_data['active'] = $this->input->post('active') ? $this->input->post('active') : 'category';
 		$this->load->view('index', $this->_data);
 	}
 

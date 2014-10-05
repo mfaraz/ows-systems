@@ -39,6 +39,15 @@
 					</li>
 					<?php
 				endif;
+				if ($this->musers->has_login('mul_invoices')):
+					?>
+					<li class="<?php echo $this->uri->segment(1) == 'invoices' ? 'active' : '' ?>">
+						<?php
+						echo anchor('invoices/', '<i class="fa fa-file-text-o fa-3x"></i>Invoices', 'title="Invoices"');
+						?>
+					</li>
+					<?php
+				endif;
 				if ($this->musers->has_login('mul_reports')):
 					?>
 					<li class="<?php echo $this->uri->segment(1) == 'reports' ? 'active' : '' ?>">
@@ -67,13 +76,6 @@
 				<?php endif; ?>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
-				<li>
-					<a>
-						<?php
-						echo $this->session->userdata('username') ? $this->session->userdata('fullname') . '(' . $this->session->userdata('role') . ')' : NULL;
-						?>
-					</a>
-				</li>
 				<li><?php echo anchor('login/logout/', '<i class="fa fa-sign-out fa-3x"></i>Sign Out', 'title = "Sign Out"'); ?></li>
 			</ul>
 		</nav>

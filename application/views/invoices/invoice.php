@@ -2,7 +2,7 @@
 	<?php
 	if ($invoice_items) {
 		foreach ($invoice_items as $item) {
-			$customer = $item->customer ? $item->customer : 'Unknown';
+			$customer = $item->customer;
 			$cashier = ucfirst($this->musers->has_login('sess_username'));
 			$invoice_date = mdate('%d-%m-%Y %H:%i', $item->crdate);
 			$invoice_number = $item->invoice_number;
@@ -87,7 +87,7 @@
 							echo 'Deposit:<br>';
 						}
 						if ($cash_receive != '0.00') {
-							echo 'Paid Amount:<br>';
+							echo 'Cash Received:<br>';
 						}
 						if ($balance != '0.00') {
 							echo 'Remaining:<br>';

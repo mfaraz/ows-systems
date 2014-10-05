@@ -47,6 +47,7 @@ class Msettings extends CI_Model {
 			->set('DEFAULT_COMPANY_ADDRESS', $this->input->post('DEFAULT_COMPANY_ADDRESS'))
 			->set('DEFAULT_COMPANY_PHONE', $this->input->post('DEFAULT_COMPANY_PHONE'))
 			->set('DEFAULT_USD_TO_KH', $this->input->post('DEFAULT_USD_TO_KH'))
+			->set('DEFAULT_PAGINATION', $this->input->post('DEFAULT_PAGINATION'))
 			->set('DISPLAY_CUSTOMER', $this->input->post('DISPLAY_CUSTOMER') == '' ? 0 : 1);
 		$result = $this->db->get('ci_settings');
 		if ($result->num_rows() > 0) {

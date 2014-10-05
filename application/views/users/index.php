@@ -3,10 +3,10 @@
 </div>
 <div class="panel-body">
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="<?php echo ($active == 'user') ? 'active' : ''; ?>">
+		<li class="active">
 			<a href="#users" role="tab" data-toggle="tab">List users</a>
 		</li>
-		<li class="<?php echo ($active == 'role') ? 'active' : ''; ?>">
+		<li>
 			<a href="#roles" role="tab" data-toggle="tab">User Roles</a>
 		</li>
 	</ul>
@@ -14,7 +14,7 @@
 	echo $this->session->flashdata('message');
 	?>
 	<div class="tab-content">
-		<div class="tab-pane <?php echo ($active == 'user') ? 'active' : ''; ?>" id="users">
+		<div class="tab-pane active" id="users">
 			<div class="panel-group" id="accordion">
 				<div class="btn-toolbar" role="toolbar">
 					<?php
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane <?php echo ($active == 'role') ? 'active' : ''; ?>" id="roles">
+		<div class="tab-pane" id="roles">
 			<div class="panel-group" id="accordion">
 				<div class="btn-toolbar" role="toolbar">
 					<?php
@@ -82,7 +82,7 @@
 							<tr>
 								<th rowspan="2" class="valign-middle">N&ordm;</th>
 								<th rowspan="2" class="valign-middle">Role</th>
-								<th colspan="7">Modules Permission</th>
+								<th colspan="8">Modules Permission</th>
 								<th rowspan="2" class="valign-middle">Date Created</th>
 								<th rowspan="2" class="valign-middle">Date Modified</th>
 								<th rowspan="2" class="valign-middle">Status</th>
@@ -93,6 +93,7 @@
 								<th>Deposits</th>
 								<th>Products</th>
 								<th>Categories</th>
+								<th>Invoices</th>
 								<th>Reports</th>
 								<th>Users</th>
 								<th>Settings</th>
@@ -112,6 +113,7 @@
 										<td><?php echo $role->mul_deposits == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_products == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_categories == 1 ? $yes : $no; ?></td>
+										<td><?php echo $role->mul_invoices == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_reports == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_users == 1 ? $yes : $no; ?></td>
 										<td><?php echo $role->mul_settings == 1 ? $yes : $no; ?></td>

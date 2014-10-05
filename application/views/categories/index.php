@@ -3,10 +3,10 @@
 </div>
 <div class="panel-body">
 	<ul class="nav nav-tabs" role="tablist">
-		<li class="<?php echo ($active == 'category') ? 'active' : ''; ?>">
+		<li class="active">
 			<a href="#category" role="tab" data-toggle="tab">Category</a>
 		</li>
-		<li class="<?php echo ($active == 'brand') ? 'active' : ''; ?>">
+		<li>
 			<a href="#brand" role="tab" data-toggle="tab">Brand</a>
 		</li>
 	</ul>
@@ -14,7 +14,7 @@
 	echo $this->session->flashdata('message');
 	?>
 	<div class="tab-content">
-		<div class="tab-pane <?php echo ($active == 'category') ? 'active' : ''; ?>" id="category">
+		<div class="tab-pane active" id="category">
 			<div class="panel-group" id="accordion">
 				<div class="btn-toolbar" role="toolbar">
 					<?php
@@ -67,7 +67,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane <?php echo ($active == 'brand') ? 'active' : ''; ?>" id="brand">
+		<div class="tab-pane" id="brand">
 			<div class="panel-group" id="accordion">
 				<div class="btn-toolbar" role="toolbar">
 					<?php

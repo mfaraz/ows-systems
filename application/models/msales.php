@@ -106,9 +106,12 @@ class Msales extends CI_Model {
 		return $invoice_number;
 	}
 
-	public function save_invoice_details() {
+	/**
+	 * Save invoice detial
+	 */
+	public function save_invoice_details($invoice_no = '') {
 		$this->_data = array(
-			'iid' => $this->session->userdata('cur_invoice_id'),
+			'iid' => ($invoice_no != '' ? $invoice_no : $this->session->userdata('cur_invoice_id')),
 			'parent_id' => $this->input->post('parent_id'),
 			'cid' => $this->input->post('cid'),
 			'name' => $this->input->post('name'),
@@ -133,7 +136,7 @@ class Msales extends CI_Model {
 		} else {
 			$this->db->where('i.iid', 0);
 		}
-		$this->db->select(array('d.idid', 'i.invoice_number', 'i.customer', 'i.total',
+		$this->db->select(array('d.idid', 'd.iid', 'i.invoice_number', 'i.customer', 'i.total',
 				'i.cash_receive', 'i.cash_type', 'i.discount', 'i.grand_total', 'i.deposit', 'i.balance',
 				'i.cash_exchange', 'i.crdate', 'i.modate', 'i.grand_total', 'd.cid', 'd.name', 'd.qty',
 				'd.unit_price', 'd.sub_total'))
@@ -151,8 +154,8 @@ class Msales extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function get_total() {
-		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = ' . $this->session->userdata('cur_invoice_id') . ') AS total', FALSE);
+	public function get_total($invoice_no = '') {
+		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = ' . ($invoice_no != '' ? $invoice_no : $this->session->userdata('cur_invoice_id')) . ') AS total', FALSE);
 		$result = $this->db->get('ci_invoice_details')->result();
 		if ($result) {
 			foreach ($result as $r) {
@@ -161,6 +164,24 @@ class Msales extends CI_Model {
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * Get customer
+	 *
+	 * @param string $chash
+	 * @return array
+	 */
+	public function get_customer($chash = '') {
+		if (!empty($chash)) {
+			$this->db->where('chash', $chash);
+		} else {
+			$this->db->where('iid', $this->session->userdata('cur_invoice_id'));
+		}
+
+		return $this->db->select(array('customer', 'grand_total'))
+				->limit(1)
+				->get('ci_invoices');
 	}
 
 	// Update invoice before printing
@@ -184,8 +205,9 @@ class Msales extends CI_Model {
 	 *
 	 * @param string $name
 	 * @param integer $qty
+	 * @param boolean $returnable
 	 */
-	public function cut_stock($name, $qty) {
+	public function cut_stock($name, $qty, $returnable = FALSE) {
 		$result = $this->db->select(array('unit_in_stocks', 'unit_in_sales'))
 			->where('name', $name)
 			->where('unit_in_stocks > ', 0)
@@ -193,8 +215,13 @@ class Msales extends CI_Model {
 
 		if ($result->num_rows() > 0) {
 			foreach ($result->result() as $arr) {
-				$new_unit_in_stocks = $arr->unit_in_stocks - $qty;
-				$new_unit_in_sales = $arr->unit_in_sales + $qty;
+				if ($returnable == TRUE) {
+					$new_unit_in_stocks = $arr->unit_in_stocks + $qty;
+					$new_unit_in_sales = $arr->unit_in_sales - $qty;
+				} else {
+					$new_unit_in_stocks = $arr->unit_in_stocks - $qty;
+					$new_unit_in_sales = $arr->unit_in_sales + $qty;
+				}
 
 				$this->db->set('unit_in_stocks', $new_unit_in_stocks)
 					->set('unit_in_sales', $new_unit_in_sales)

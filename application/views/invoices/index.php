@@ -1,99 +1,147 @@
 <div class="panel-heading hidden-print">
-	<h2 class="panel-title">Invoice Generation</h2>
+	<h2 class="panel-title"><?php echo $title; ?></h2>
 </div>
 <div class="panel-body">
 	<?php
 	echo $this->session->flashdata('message');
 	?>
-	<div class="content sale">
-		<div class="row">
-			<div class="col-md-6 hidden-print">
-				<?php
-				echo form_open('invoices/', 'class="form-horizontal" role="form"');
-				?>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Customer Information
-							<button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-						</h3>
-					</div>
-					<div class="panel-body">
-						<div class="form-group <?php echo form_is_error('customer'); ?>">
-							<label for="customer" class="control-label col-sm-3">Customer</label>
-							<div class="col-md-9">
-								<input type="text" name="customer" id="customer" class="form-control input-sm" value="<?php echo set_value('customer'); ?>" pattern=".{9,30}" title="Allow enter between 1 to 50 characters" />
-								<?php echo form_error('customer'); ?>
-								<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> Customer Name or Phone Number!</p>
-							</div>
-						</div>
-						<div class="form-group <?php echo form_is_error('cash_receive'); ?>">
-							<label for="cash_receive" class="control-label col-sm-3">Cash Received <span
-									class="required">*</span></label>
-							<div class="col-md-9">
-								<input type="text" name="cash_receive" id="cash_receive" class="form-control input-sm" value="<?php echo set_value('cash_receive'); ?>" pattern=".{1,50}" title="Allow enter between 1 to 50 characters" required />
-								<?php echo form_error('cash_receive'); ?>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="cash_type" class="control-label col-sm-3">Cash Type</label>
-							<div class="col-md-9">
-								<?php
-								$options = array(
-									'US' => 'US Dollars',
-									'KH' => 'KH Riels'
-								);
-								echo form_dropdown('cash_type', $options, set_value('cash_type'), 'id="cash_type" class="form-control input-sm"');
-								?>
-							</div>
-						</div>
-						<div class="form-group <?php echo form_is_error('discount'); ?>">
-							<label for="discount" class="control-label col-sm-3">Discount</label>
-							<div class="col-md-9">
-								<input type="text" name="discount" id="discount" class="form-control input-sm" value="<?php echo set_value('discount'); ?>" pattern=".{1,3}" title="Allow enter between 1 to 3 characters" />
-								<?php echo form_error('discount'); ?>
-								<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span>
-									Do not include symbol "%" for discount number!</p>
-							</div>
-						</div>
-						<div class="form-group <?php echo form_is_error('deposit'); ?>">
-							<label for="deposit" class="control-label col-sm-3">Deposit</label>
-							<div class="col-md-9">
-								<input type="text" name="deposit" id="deposit" class="form-control input-sm" value="<?php echo set_value('deposit'); ?>" pattern=".{1,50}" title="Allow enter between 1 to 50 characters" />
-								<?php echo form_error('deposit'); ?>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php
-				echo form_close();
-				?>
+	<div class="content">
+		<div class="filter">
+			<?php
+			echo form_open('invoices/', 'class="form-inline" role="form"');
+			?>
+			<div class="form-group">
+				<label class="sr-only" for="invoice_number">Invoice Number</label>
+				<input type="text" class="form-control input-sm" id="invoice_number" name="invoice_number" value="<?php echo set_value('invoice_number'); ?>" placeholder="Invoice Number" pattern=".{1,12}" title="Allow enter between 1 to 12 character(s)">
 			</div>
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading hidden-print">
-						<h3 class="panel-title">
-							Purchase Information
-							<?php
-							if ($invoice_items) {
-								foreach ($invoice_items as $item) {
-									if ($item->cash_receive != '0.00') {
-										?>
-										<a href="<?php echo base_url(); ?>invoices/print_invoice" class="btn btn-sm btn-info print"
-										   title="Print"><span class="glyphicon glyphicon-print"></span> Print</a>
-										   <?php
-									   }
-									   break;
-								   }
-							   }
-							   ?>
-						</h3>
-					</div>
-					<div class="panel-body">
-						<?php $this->load->view('invoices/invoice'); ?>
-					</div>
-				</div>
+			<div class="form-group">
+				<label class="sr-only" for="customer">Customer</label>
+				<input type="text" class="form-control input-sm" id="customer" name="customer" value="<?php echo set_value('customer'); ?>" placeholder="Customer" pattern=".{1,50}" title="Allow enter between 1 to 50 character(s)">
 			</div>
+			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
+			<?php if ($this->musers->has_login('sess_role') == 1): ?><span class="pull-right">Total Invoice = <span class="badge badge-success"><?php echo $total_invoices; ?></span> Deposit = <span class="badge badge-warning"><?php echo $total_deposits; ?></span></span><?php endif; ?>
+			</form>
 		</div>
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>N&ordm;</th>
+					<th>Invoice No</th>
+					<th>Cashier</th>
+					<th>Customer</th>
+					<th>Total</th>
+					<th>Deposit</th>
+					<th>Remaining</th>
+					<th>Invoice or Deposit<br /> Date</th>
+					<th>Complete Payment<br /> Date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				if ($invoices) {
+					$i = 1;
+					if ($this->musers->has_login('sess_role') != 1) {
+						foreach ($invoices->result() as $invoice) {
+							$expired = ceil(abs(time() - $invoice->modate) / 86400);
+							if ($expired <= 3) {
+								?>
+								<tr <?php echo $invoice->deposit != '0.00' ? 'class="warning"' : ''; ?>>
+									<td><?php echo $i++; ?></td>
+									<td><?php echo $invoice->invoice_number; ?></td>
+									<td><?php echo $invoice->cashier; ?></td>
+									<td><?php echo $invoice->customer; ?></td>
+									<td><?php
+										echo $invoice->cash_type == 'US' ? '$' . $invoice->grand_total :
+											$invoice->grand_total . '៛';
+										?></td>
+									<td><?php
+										if ($invoice->deposit != '0.00') {
+											echo $invoice->cash_type == 'US' ? '$' . $invoice->deposit : $invoice->deposit .
+												'៛';
+										} else {
+											echo '---';
+										}
+										?></td>
+									<td><?php
+										if ($invoice->balance != '0.00') {
+											echo $invoice->cash_type == 'US' ? '$' . $invoice->balance : $invoice->balance . '៛';
+										} else {
+											echo '---';
+										}
+										?></td>
+									<td><?php echo mdate('%d-%M-%Y %H:%i', $invoice->crdate); ?></td>
+									<td><?php echo $invoice->modate != 0 ? mdate('%d-%M-%Y %H:%i', $invoice->modate) : '---'; ?></td>
+									<td>
+										<?php
+										if ($invoice->deposit != '0.00') {
+											echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
+								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs" disabled="disabled"');
+										} else {
+											$expired = ceil(abs(time() - $invoice->modate) / 86400);
+											echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
+								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs"' . ($expired > 3 ? 'disabled="disabled"' : ''));
+										}
+										?>
+									</td>
+								</tr>
+								<?php
+							}
+						}
+					} else {
+						foreach ($invoices->result() as $invoice) {
+							?>
+							<tr <?php echo $invoice->deposit != '0.00' ? 'class="warning"' : ''; ?>>
+								<td><?php echo $i++; ?></td>
+								<td><?php echo $invoice->invoice_number; ?></td>
+								<td><?php echo $invoice->cashier; ?></td>
+								<td><?php echo $invoice->customer; ?></td>
+								<td><?php
+									echo $invoice->cash_type == 'US' ? '$' . $invoice->grand_total :
+										$invoice->grand_total . '៛';
+									?></td>
+								<td><?php
+									if ($invoice->deposit != '0.00') {
+										echo $invoice->cash_type == 'US' ? '$' . $invoice->deposit : $invoice->deposit .
+											'៛';
+									} else {
+										echo '---';
+									}
+									?></td>
+								<td><?php
+									if ($invoice->balance != '0.00') {
+										echo $invoice->cash_type == 'US' ? '$' . $invoice->balance : $invoice->balance . '៛';
+									} else {
+										echo '---';
+									}
+									?></td>
+								<td><?php echo mdate('%d-%M-%Y %H:%i', $invoice->crdate); ?></td>
+								<td><?php echo $invoice->modate != 0 ? mdate('%d-%M-%Y %H:%i', $invoice->modate) : '---'; ?></td>
+								<td>
+									<?php
+									if ($invoice->deposit != '0.00') {
+										echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
+								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs" disabled="disabled"');
+									} else {
+										$expired = ceil(abs(time() - $invoice->modate) / 86400);
+										echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
+								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs"' . ($expired > 3 ? 'disabled="disabled"' : ''));
+									}
+									?>
+								</td>
+							</tr>
+							<?php
+						}
+					}
+				} else {
+					echo '<tr><td colspan="9">There is not any deposit.</td></tr>';
+				}
+				?>
+			</tbody>
+		</table>
 	</div>
+	<?php
+	//page_browser(base_url() . 'invoices/index/', $total_invoices, 2);
+	echo $this->pagination->create_links();
+	?>
 </div>

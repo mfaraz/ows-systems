@@ -15,7 +15,6 @@ class Users extends HD_Controller {
 	 * Retrieve all roles and users
 	 */
 	public function index() {
-		$this->_data['active'] = 'user';
 		$this->_data['users'] = $this->musers->get_user();
 		$this->_data['roles'] = $this->mroles->get_role();
 		$this->load->view('index', $this->_data);
@@ -83,7 +82,6 @@ class Users extends HD_Controller {
 		$this->form_validation->set_message('valid_email', 'Invalid email format!');
 		$this->form_validation->set_message('matches', 'Password does not match!');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['active'] = 'user';
 			$this->_data['roles'] = $this->mroles->get_rolelist();
 			$this->load->view('index', $this->_data);
 		} else {
@@ -133,6 +131,11 @@ class Users extends HD_Controller {
 				'rules' => 'trim'
 			),
 			array(
+				'field' => 'mul_invoices',
+				'label' => '',
+				'rules' => 'trim'
+			),
+			array(
 				'field' => 'mul_reports',
 				'label' => '',
 				'rules' => 'trim'
@@ -158,12 +161,12 @@ class Users extends HD_Controller {
 		$this->form_validation->set_checkbox('mul_deposits');
 		$this->form_validation->set_checkbox('mul_products');
 		$this->form_validation->set_checkbox('mul_categories');
+		$this->form_validation->set_checkbox('mul_invoices');
 		$this->form_validation->set_checkbox('mul_reports');
 		$this->form_validation->set_checkbox('mul_users');
 		$this->form_validation->set_checkbox('mul_settings');
 		$this->form_validation->set_checkbox('status');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['active'] = 'role';
 			$this->load->view('index', $this->_data);
 		} else {
 			if ($this->mroles->add()) {
@@ -224,7 +227,6 @@ class Users extends HD_Controller {
 		$this->form_validation->set_select('rid');
 		$this->form_validation->set_checkbox('status');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['active'] = 'user';
 			$this->_data['roles'] = $this->mroles->get_rolelist();
 			$this->load->view('index', $this->_data);
 		} else {
@@ -282,6 +284,11 @@ class Users extends HD_Controller {
 				'rules' => 'trim'
 			),
 			array(
+				'field' => 'mul_invoices',
+				'label' => '',
+				'rules' => 'trim'
+			),
+			array(
 				'field' => 'mul_reports',
 				'label' => '',
 				'rules' => 'trim'
@@ -307,12 +314,12 @@ class Users extends HD_Controller {
 		$this->form_validation->set_checkbox('mul_deposits');
 		$this->form_validation->set_checkbox('mul_products');
 		$this->form_validation->set_checkbox('mul_categories');
+		$this->form_validation->set_checkbox('mul_invoices');
 		$this->form_validation->set_checkbox('mul_reports');
 		$this->form_validation->set_checkbox('mul_users');
 		$this->form_validation->set_checkbox('mul_settings');
 		$this->form_validation->set_checkbox('status');
 		if ($this->form_validation->run() == FALSE) {
-			$this->_data['active'] = 'role';
 			$this->load->view('index', $this->_data);
 		} else {
 			if ($this->mroles->edit()) {

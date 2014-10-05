@@ -5,11 +5,11 @@
 	<?php
 	echo $this->session->flashdata('message');
 	?>
-	<div class="content sale">
+	<div class="content sale returnable">
 		<div class="row">
 			<div class="col-md-6 hidden-print">
 				<?php
-				echo form_open('sales/', 'class="form-horizontal" role="form"');
+				echo form_open('sales/returnable/' . $this->uri->segment(3) . '/' . $this->uri->segment(4), 'class="form-horizontal" role="form"');
 				?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -36,14 +36,14 @@
 							Purchase Information
 							<?php
 							if ($invoice_items) {
-								echo anchor('invoices/prepare_invoice', '<span class="glyphicon
+								echo anchor('invoices/prepare_invoice/' . $this->uri->segment(3) . '/' . $this->uri->segment(4), '<span class="glyphicon
 								glyphicon-circle-arrow-right"></span> Next', 'class="btn btn-sm btn-info"');
 							}
 							?>
 						</h3>
 					</div>
 					<div class="panel-body">
-						<?php $this->load->view('sales/partials/purchase'); ?>
+						<?php $this->load->view('sales/partials/old-purchase'); ?>
 					</div>
 				</div>
 				<?php

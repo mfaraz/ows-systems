@@ -58,6 +58,9 @@
 							<div class="checkbox"><input type="checkbox" name="mul_categories" value="1" <?php echo set_checkbox('mul_categories', 1, FALSE); ?>> Allow to manage <strong>Categories</strong> module</div>
 						</div>
 						<div class="col-sm-12">
+							<div class="checkbox"><input type="checkbox" name="mul_invoices" value="1" <?php echo set_checkbox('mul_invoices', 1, FALSE); ?>> Allow to manage <strong>Invoices</strong> module</div>
+						</div>
+						<div class="col-sm-12">
 							<div class="checkbox"><input type="checkbox" name="mul_reports" value="1" <?php echo set_checkbox('mul_reports', 1, FALSE); ?>> Allow to manage <strong>Reports</strong> module</div>
 						</div>
 						<div class="col-sm-12">

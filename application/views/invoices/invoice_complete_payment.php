@@ -67,7 +67,7 @@
 							echo '<strong>Remaining</strong>:<br>';
 						}
 						if ($cash_receive != '0.00') {
-							echo 'Paid Amount:<br>';
+							echo 'Cash Received:<br>';
 						}
 						if ($cash_exchange != '0.00') {
 							echo 'Exchange:';

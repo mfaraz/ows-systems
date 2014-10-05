@@ -78,6 +78,32 @@
 									</div>
 								</div>
 							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<a data-toggle="collapse" class="accordion-toggle" href="#collapseEight">
+											Pagination - Display number of records per page
+										</a>
+									</h3>
+								</div>
+								<div id="collapseEight" class="panel-collapse in">
+									<div class="panel-body">
+										<div class="form-group">
+											<div class="col-sm-12">
+												<?php
+												$options = array(
+													'25' => '25',
+													'50' => '50',
+													'100' => '100',
+													'0' => 'All'
+												);
+												echo form_dropdown('DEFAULT_PAGINATION', $options, set_value('DEFAULT_PAGINATION', $setting['DEFAULT_PAGINATION']), 'class="input-sm"');
+												?>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="panel panel-default">
@@ -93,7 +119,7 @@
 										<div class="form-group">
 											<div class="col-sm-12 input-group">
 												<?php echo form_upload('DEFAULT_COMPANY_LOGO', set_value('DEFAULT_COMPANY_LOGO', $setting['DEFAULT_COMPANY_LOGO']), 'class="pull-left"'); ?>
-												<img src="<?php echo base_url() . IMG_PATH . $setting['DEFAULT_COMPANY_LOGO']; ?>" alt="Logo" width="200" class="pull-right" />
+												<img src="<?php echo base_url() . IMG_PATH . $setting['DEFAULT_COMPANY_LOGO']; ?>" alt="Logo" width="300" class="pull-right" />
 											</div>
 										</div>
 									</div>

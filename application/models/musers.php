@@ -108,22 +108,31 @@ class Musers extends CI_Model {
 	 * Login validation
 	 */
 	public function validate_login() {
-		$result = $this->db->select(array('u.*', 'r.*'))
+		$result = $this->db->select(array('u.*', 'u.rid AS role_id', 'r.*'))
 			->from('ci_users u')
 			->join('ci_roles r', 'r.rid = u.rid')
 			->where(array(
-				'username' => $this->input->post('username'),
-				'password' => md5($this->input->post('password') . $this->config->item('encryption_key')),
+				'u.username' => $this->input->post('username'),
+				'u.password' => md5($this->input->post('password') . $this->config->item('encryption_key')),
 				'u.status' => 1)
 			)
 			->limit(1)
-			->get();
+			->get('ci_users');
 		if ($result->num_rows() > 0) {
+			$this->db->where('status', 0)
+				->delete('ci_invoices');
+
 			return $result->row();
 		}
 		return FALSE;
 	}
 
+	/**
+	 * Check login session
+	 *
+	 * @param type $field
+	 * @return boolean/array
+	 */
 	public function has_login($field = '') {
 		if (empty($field)) {
 			$result = $this->db->get('ci_sessions');

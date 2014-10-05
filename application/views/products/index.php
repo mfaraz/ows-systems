@@ -12,7 +12,7 @@
 		}
 	}
 	?>
-	<span class="pull-right">Total: <strong><?php echo $total; ?></strong></span>
+	<span class="pull-right">Total = <span class="badge badge-success"><?php echo $total; ?></span></span>
 	<div class="content">
 		<div class="filter">
 			<?php

@@ -179,6 +179,7 @@ if (!function_exists('javascripts')) {
 		$scripts .= script_tag(JS_PATH . 'jquery-ui.min.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'bootstrap.min.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'bootstrap-datepicker.js') . "\r\n";
+		$scripts .= script_tag(JS_PATH . 'jquery.cookie.js') . "\r\n";
 		$scripts .= script_tag(JS_PATH . 'custom.min.js') . "\r\n";
 
 		return $scripts;
