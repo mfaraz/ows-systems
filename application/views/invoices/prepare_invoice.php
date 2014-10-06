@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-md-6 hidden-print">
 				<?php
-				echo form_open('invoices/', 'class="form-horizontal" role="form"');
+				echo form_open('invoices/prepare_invoice', 'class="form-horizontal" role="form"');
 				?>
 				<div class="panel panel-default">
 					<div class="panel-heading">

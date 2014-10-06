@@ -63,7 +63,7 @@ class Invoices extends HD_Controller {
 			// Deposit
 			if ($this->input->post('deposit')) {
 				$deposit = $this->input->post('deposit');
-				$modate = time();
+				$modate = 0;
 				$balance = $grant_total - $deposit;
 				if ($this->input->post('deposit') < $cash_receive) {
 					$cash_exchange = $cash_receive - $deposit;
@@ -72,7 +72,7 @@ class Invoices extends HD_Controller {
 				}
 			} else {
 				$deposit = 0;
-				$modate = 0;
+				$modate = time();
 				$balance = 0;
 				if ($cash_receive > $grant_total) {
 					$cash_exchange = $cash_receive - $grant_total;

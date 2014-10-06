@@ -155,7 +155,12 @@ class Msales extends CI_Model {
 	 * @return mixed
 	 */
 	public function get_total($invoice_no = '') {
-		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = ' . ($invoice_no != '' ? $invoice_no : $this->session->userdata('cur_invoice_id')) . ') AS total', FALSE);
+		if (empty($invoice_no)) {
+			$iid = $this->session->userdata('cur_invoice_id');
+		} else {
+			$iid = $invoice_no;
+		}
+		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = ' . $iid . ') AS total', FALSE);
 		$result = $this->db->get('ci_invoice_details')->result();
 		if ($result) {
 			foreach ($result as $r) {

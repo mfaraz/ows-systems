@@ -195,6 +195,12 @@ form .form-group .form-control.input-sm.bold {
 .sale .panel a.btn {
 	color: #ffffff;
 }
+.badge.badge-success {
+	background-color: #419641;
+}
+.badge.badge-warning {
+	background-color: #c12e2a;
+}
 @media print {
 	* {
 		color: #202020;
