@@ -23,7 +23,8 @@ class Mdeposits extends CI_Model {
 					'i.deposit', 'i.balance', 'i.crdate', 'u.firstname'))
 				->from('ci_invoices i')
 				->join('ci_users u', 'u.uid = i.cruser')
-				->where('i.deposit !=', '0.00')
+				->where('i.deposit <>', '0.00')
+				->where('i.balance <>', '0.00')
 				->get()->result();
 	}
 

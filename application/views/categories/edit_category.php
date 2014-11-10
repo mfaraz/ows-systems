@@ -3,7 +3,7 @@
 </div>
 <div class="panel-body">
 	<?php
-	echo form_open('categories/edit/' . $this->uri->segment(3), 'role="form" class="form-horizontal"');
+	echo form_open('categories/edit_category/' . $this->uri->segment(3), 'role="form" class="form-horizontal"');
 	echo form_toolbar();
 	if ($category):
 		?>

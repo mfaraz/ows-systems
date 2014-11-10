@@ -260,4 +260,15 @@ class Msales extends CI_Model {
 			->update('ci_invoices', $data);
 	}
 
+	/**
+	 * Discard purchase invoice
+	 *
+	 * @param type $id
+	 * return boolean
+	 */
+	public function discard($id) {
+		$this->db->where('idid', $id);
+		return $this->db->delete('ci_invoice_details') ? TRUE : FALSE;
+	}
+
 }

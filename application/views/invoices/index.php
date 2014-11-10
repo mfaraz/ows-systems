@@ -141,7 +141,6 @@
 		</table>
 	</div>
 	<?php
-	//page_browser(base_url() . 'invoices/index/', $total_invoices, 2);
 	echo $this->pagination->create_links();
 	?>
 </div>

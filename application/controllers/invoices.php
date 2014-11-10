@@ -14,9 +14,8 @@ class Invoices extends HD_Controller {
 	public function index() {
 		$this->form_validation->set_rules('invoice_number', '', 'trim');
 		$this->form_validation->set_rules('customer', '', 'trim');
-		$per_page = (int) $this->msettings->display_setting('DEFAULT_PAGINATION');
-
 		$this->form_validation->run();
+		$per_page = (int) $this->msettings->display_setting('DEFAULT_PAGINATION');
 		$this->_data['invoices'] = $this->minvoices->findAllInvoices($per_page, $this->uri->segment(3));
 		$this->_data['total_invoices'] = $this->minvoices->countAllInvoices();
 		$this->_data['total_deposits'] = $this->minvoices->countAllInvoicesDeposit();
@@ -81,7 +80,7 @@ class Invoices extends HD_Controller {
 				}
 			}
 
-			$customer = $this->input->post('customer') != '' ? $this->input->post('customer') : 'Walk In Customer';
+			$customer = $this->input->post('customer') != '' ? $this->input->post('customer') : 'Normal';
 			$data = array(
 				'customer' => $customer,
 				'total' => $total,

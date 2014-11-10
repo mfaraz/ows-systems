@@ -103,7 +103,7 @@ class Users extends HD_Controller {
 			array(
 				'field' => 'name',
 				'label' => 'Name',
-				'rules' => 'trim|max_length[50]|alpha|is_unique[ci_roles.name]'
+				'rules' => 'trim|max_length[50]|is_unique[ci_roles.name]'
 			),
 			array(
 				'field' => 'description',

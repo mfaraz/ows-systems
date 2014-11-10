@@ -47,7 +47,7 @@ class Sales extends HD_Controller {
 	 */
 	public function discard() {
 		if ($this->msales->discard($this->uri->segment(3))) {
-			$this->session->set_flashdata('message', alert_message("Product has been added to invoice!", 'success'));
+			$this->session->set_flashdata('message', alert_message("Product has been removed!", 'success'));
 			redirect('sales/');
 		}
 	}

@@ -68,8 +68,8 @@
 					</tr>
 				<?php } ?>
 				<tr>
-					<td colspan="3">&nbsp;</td>
-					<td class="align-left">
+					<td>&nbsp;</td>
+					<td colspan="3" class="align-left">
 						<?php
 						if ($cash_receive == '0.00') {
 							echo 'Total:';

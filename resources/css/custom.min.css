@@ -187,7 +187,7 @@ form .form-group .form-control.input-sm.bold {
 .sale .panel .panel-heading {
 	position: relative;
 }
-.sale .panel .btn {
+.sale .panel h3 > .btn {
 	position: absolute;
 	top: 4px;
 	right: 15px;

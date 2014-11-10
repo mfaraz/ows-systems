@@ -17,13 +17,13 @@ class Mreports extends CI_Model {
 	 */
 	public function mis_report() {
 		$this->db->select(array('i.iid', 'i.invoice_number', 'i.crdate AS invoice_date', 'i.customer',
-				'u.firstname AS invoice_seller', 'p.name AS product_name', 'd.qty AS product_qty',
+				'u.firstname AS invoice_seller', 'd.name AS product_name', 'd.qty AS product_qty',
 				'd.unit_price AS product_price', 'd.sub_total AS product_total', 'c.name AS category_name'))
 			->from('ci_invoices i')
 			->join('ci_users u', 'u.uid = i.cruser')
 			->join('ci_invoice_details d', 'd.iid = i.iid')
-			->join('ci_products p', 'p.name = d.name')
-			->join('ci_categories c', 'c.cid = p.cid')
+			//->join('ci_products p', 'p.name = d.name')
+			->join('ci_categories c', 'c.cid = d.cid')
 			->where('i.status', 1)
 			->where('i.report', 0);
 		$result = $this->db->get();
@@ -54,9 +54,13 @@ class Mreports extends CI_Model {
 	}
 
 	/**
-	 * @return bool/mixed
+	 * Retreive all reports records
+	 *
+	 * @param type $num_row
+	 * @param type $from_row
+	 * @return array
 	 */
-	public function generate_report() {
+	public function findAllReports($num_row, $from_row) {
 		if ($this->input->post('date')) {
 			$date = $this->input->post('date');
 		} else {
@@ -93,11 +97,21 @@ class Mreports extends CI_Model {
 				$this->db->where('invoice_year', $date_split[2]);
 				break;
 		}
+		$this->db->limit($num_row, $from_row);
 		$result = $this->db->get('ci_reports');
 		if ($result->num_rows() > 0) {
 			return $result->result();
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Count all report records
+	 * @return integer
+	 */
+	public function countAllReports() {
+		$data = $this->db->get('ci_invoices');
+		return $data->num_rows() > 0 ? (int) $data->num_rows() : FALSE;
 	}
 
 }

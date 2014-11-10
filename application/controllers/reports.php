@@ -31,10 +31,12 @@ class Reports extends HD_Controller {
 		$this->form_validation->set_select('category');
 		$this->form_validation->set_select('brand');
 		$this->form_validation->run();
-		$this->_data['reports'] = $this->mreports->generate_report();
+		$per_page = (int) $this->msettings->display_setting('DEFAULT_PAGINATION');
+		$this->_data['reports'] = $this->mreports->findAllReports($per_page, $this->uri->segment(3));
 		$this->_data['cashiers'] = $this->musers->select_cashier();
 		$this->_data['categories'] = $this->mcategories->select_categorylist();
 		$this->_data['brands'] = $this->mcategories->select_brandlist();
+		page_browser(base_url() . 'reports/index/', (int) $this->mreports->countAllReports(), $per_page);
 		$this->load->view('index', $this->_data);
 	}
 
