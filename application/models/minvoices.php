@@ -21,13 +21,13 @@ class Minvoices extends CI_Model {
 		if ($this->musers->has_login('sess_id') != 1) {
 			$this->db->where('i.cruser', $this->musers->has_login('sess_id'));
 		}
-		$this->db->select(array('CONCAT(u.firstname," ", u.lastname) AS cashier', 'i.*'));
 		if ($this->input->post('invoice_number') != '') {
 			$this->db->like('i.invoice_number', $this->input->post('invoice_number'));
 		}
 		if ($this->input->post('customer') != '') {
 			$this->db->like('i.customer', $this->input->post('customer'));
 		}
+		$this->db->select(array('CONCAT(u.firstname," ", u.lastname) AS cashier', 'i.*'));
 		$this->db->from('ci_invoices i')
 			->join('ci_users u', 'u.uid = i.cruser')
 			->where('i.status', 1)
@@ -62,7 +62,35 @@ class Minvoices extends CI_Model {
 		return $data->num_rows();
 	}
 
+	/**
+	 * View invoice detail list
+	 *
+	 * @param string $invoice_number
+	 */
+	public function view($invoice_number) {
+		$fields = array(
+			'I.iid AS invoice_id',
+			'I.invoice_number AS invoice_number',
+			'I.customer AS customer',
+			'I.total AS total',
+			'I.discount AS discount',
+			'I.grand_total AS grand_total',
+			'I.deposit AS deposit',
+			'I.balance AS balance',
+			'I.crdate AS crdate',
+			'D.name AS product_name',
+			'D.qty AS quality',
+			'D.unit_price AS unit_price',
+			'D.sub_total AS sub_total'
+
+		);
+		$this->db->select($fields)
+			->from('ci_invoices I')
+			->join('ci_invoice_details D', 'D.iid = I.iid')
+			->where('I.invoice_number', $invoice_number);
+		return $this->db->get();
+	}
 }
 
-/* End of file musers.php */
+/* End of file minvoices.php */
 /* Location: ./application/models/minvoices.php */

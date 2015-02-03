@@ -119,9 +119,6 @@ class Musers extends CI_Model {
 			->limit(1)
 			->get('ci_users');
 		if ($result->num_rows() > 0) {
-			$this->db->where('status', 0)
-				->delete('ci_invoices');
-
 			return $result->row();
 		}
 		return FALSE;

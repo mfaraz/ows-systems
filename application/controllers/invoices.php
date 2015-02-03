@@ -11,7 +11,12 @@ class Invoices extends HD_Controller {
 		$this->load->model(array('minvoices', 'msales', 'mdeposits'));
 	}
 
-	public function index() {
+	/**
+	 * List view
+	 *
+	 * @param int $page
+	 */
+	public function index($page = 1) {
 		$this->form_validation->set_rules('invoice_number', '', 'trim');
 		$this->form_validation->set_rules('customer', '', 'trim');
 		$this->form_validation->run();
@@ -20,6 +25,16 @@ class Invoices extends HD_Controller {
 		$this->_data['total_invoices'] = $this->minvoices->countAllInvoices();
 		$this->_data['total_deposits'] = $this->minvoices->countAllInvoicesDeposit();
 		page_browser(base_url() . 'invoices/index/', $this->_data['total_invoices'], $per_page);
+		$this->load->view('index', $this->_data);
+	}
+
+	/**
+	 * Show detail
+	 */
+	public function view() {
+		if ($this->uri->segment(3)) {
+			$this->_data['invoices'] = $this->minvoices->view($this->uri->segment(3));
+		}
 		$this->load->view('index', $this->_data);
 	}
 
