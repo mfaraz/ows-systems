@@ -75,9 +75,10 @@
 							<td>
 								<?php
 								$modate = $invoice->modate != 0 ? $invoice->modate : $invoice->crdate;
-									$expired = ceil(abs(time() - $modate) / 86400);
-									echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
-								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs"' . ($expired > 3 ? 'disabled="disabled"' : ''));
+								$expired = ceil(abs(time() - $modate) / 86400);
+								echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon glyphicon-registration-mark"></span>', 'title="Returnable" class="btn btn-danger btn-xs"' . ($expired > 3 ? 'disabled="disabled"' : ''));
+								if ($invoice->grand_total == $invoice->balance)
+								echo '&nbsp;' . anchor('invoices/complete_payment/' . $invoice->chash, '<span class="glyphicon glyphicon-copyright-mark"></span>', 'title="Complete Payment" class="btn btn-info btn-xs"');
 								echo '&nbsp;' . anchor('invoices/view/' . $invoice->invoice_number, '<span class="glyphicon glyphicon-eye-open"></span>', 'title="View Detail" class="btn btn-default btn-xs"');
 								?>
 							</td>
@@ -85,7 +86,7 @@
 						<?php
 					}
 				} else {
-					echo '<tr><td colspan="9">There is not any deposit.</td></tr>';
+					echo '<tr><td colspan="9">There is not any reports.</td></tr>';
 				}
 				?>
 			</tbody>

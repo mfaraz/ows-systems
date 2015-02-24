@@ -109,21 +109,18 @@ class Msales extends CI_Model {
 	/**
 	 * Save invoice detial
 	 */
-	public function save_invoice_details($invoice_no = '') { 
-
-		
-		
+	public function save_invoice_details($invoice_no = '') {
 		$this->_data = array(
 			'iid' => ($invoice_no != '' ? $invoice_no : $this->session->userdata('cur_invoice_id')),
-			'parent_id' => $this->input->post('parent_id'),
-			'cid' => $this->input->post('parent_id') != '' ? $this->input->post('cid') : '',
+			'parent_id' => ($this->input->post('parent_id') != '' ? $this->input->post('parent_id') : '3'),
+			'cid' => ($this->input->post('parent_id') != '' ? $this->input->post('cid') : '3'),
 			'name' => $this->input->post('name'),
 			'qty' => $this->input->post('qty'),
 			'unit_price' => $this->input->post('unit_price'),
 			'sub_total' => ($this->input->post('qty') * $this->input->post('unit_price'))
 		);
-		
-		
+
+
 		$this->db->insert('ci_invoice_details', $this->_data);
 	}
 
@@ -277,4 +274,14 @@ class Msales extends CI_Model {
 		return $this->db->delete('ci_invoice_details') ? TRUE : FALSE;
 	}
 
+	/**
+	 * Remove invoice if no detail
+	 *
+	 * @param integer $iid
+	 * @return bool
+	 */
+	public function discardCurrentInvoice($iid) {
+		$this->db->where('iid', $iid);
+		return $this->db->delete('ci_invoices') ? TRUE : FALSE;
+	}
 }

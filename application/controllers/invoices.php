@@ -25,7 +25,7 @@ class Invoices extends HD_Controller {
 		$this->form_validation->set_rules('customer', '', 'trim');
 		$this->form_validation->run();
 		$per_page = (int) $this->msettings->display_setting('DEFAULT_PAGINATION');
-		
+
         $query = $this->minvoices->findAllInvoices($per_page, $this->uri->segment(3));
         $this->_data['invoices'] = $query;
         //@Visal
@@ -146,7 +146,7 @@ class Invoices extends HD_Controller {
 		// check in case invoice exist
 		$chash = $this->uri->segment(3);
 		$this->_data['invoice_items'] = $this->msales->check_purchase($chash);
-		
+
 		if($this->input->post('invoice_id') != ''){
 			$iid = $this->input->post('invoice_id');
 		}else{
@@ -260,14 +260,12 @@ class Invoices extends HD_Controller {
 		$invoice_no = $this->uri->segment(3);
 		$this->_data['invoice_no'] = $invoice_no;
 
-		//$this->form_validation->set_rules('cash_receive', 'Cash Received', 'required|trim|numeric');
-		$this->form_validation->set_rules('cash_receive', 'Cash Received', 'trim|numeric|callback_maximumCheck');
+		$this->form_validation->set_rules('cash_receive', 'Cash Received', 'trim|numeric|required|callback_maximumCheck');
 		$this->form_validation->set_rules('cash_type', '', 'trim');
 		$this->form_validation->set_select('cash_type');
 		if ($this->form_validation->run() == FALSE) {
 			$this->msales->clear_invoice_history($invoice_no);
 		} else {
-			
 			$cash_receive = $this->input->post('cash_receive');
 			$cash_type = $this->input->post('cash_type');
 			$balance = $this->input->post('balance');
@@ -306,11 +304,11 @@ class Invoices extends HD_Controller {
 		$this->_data['invoice_items'] = $this->msales->check_purchase($invoice_no);
 		$this->load->view('index', $this->_data);
 	}
-	
+
 	function maximumCheck($num)
 	{
 		$balance = $this->input->post('balance');
-		
+
 		if ($num < $balance)
 		{
 			$this->form_validation->set_message('maximumCheck','%s cannot less than remaining Amount');

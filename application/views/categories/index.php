@@ -54,7 +54,8 @@
 										</td>
 										<td>
 											<?php
-											echo anchor('categories/edit_category/' . $category->cid, '<span class="glyphicon glyphicon-edit"></span>', 'title="Edit" class="btn btn-warning btn-xs"') . '&nbsp;' . anchor('categories/discard_category/' . $category->cid, '<span class="glyphicon glyphicon-trash"></span>', 'title="Delete" class="btn btn-danger btn-xs" onclick="return confirm(\'Are you sure you want to delete? All brands that are belong to this category will be deleted as well!\')"');
+											echo anchor('categories/edit_category/' . $category->cid, '<span class="glyphicon glyphicon-edit"></span>', 'title="Edit" class="btn btn-warning btn-xs"');
+											echo '&nbsp;' . anchor('categories/discard_category/' . $category->cid, '<span class="glyphicon glyphicon-trash"></span>', 'title="Delete" class="btn btn-danger btn-xs'.($category->cid <=3 ? ' disabled' : '').'" onclick="return confirm(\'Are you sure you want to delete? All brands that are belong to this category will be deleted as well!\')"');
 											?>
 										</td>
 									</tr>

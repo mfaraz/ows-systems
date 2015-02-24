@@ -18,11 +18,10 @@ if (!defined('BASEPATH'))
   |
  */
 $config['base_url'] = 'http://local.ows.itservices.com/';
-//$config['base_url'] = 'http://pos.system.lan/';
 if ($_SERVER['SERVER_NAME'] === 'pos.system.lan') { // local
-    $config['base_url'] = 'http://pos.system.lan/';
+	$config['base_url'] = 'http://pos.system.lan/';
 } else {
-    $config['base_url'] = 'http://local.ows.itservices.com/';
+	$config['base_url'] = 'http://local.ows.itservices.com/';
 }
 
 /*

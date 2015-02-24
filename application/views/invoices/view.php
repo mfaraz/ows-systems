@@ -4,7 +4,7 @@
 <div class="panel-body">
 	<div class="content">
 		<div class="btn-toolbar">
-			<a href="<?php echo base_url(); ?>invoices" class="btn btn-sm btn-danger" title=""
+			<a href="<?php echo base_url(); ?>invoices" class="btn btn-sm btn-default" title=""
 			   data-original-title=""><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
 		</div>
 		<table class="table table-hover table-bordered table-striped">

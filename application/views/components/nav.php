@@ -80,7 +80,7 @@
 				<?php endif; ?>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
-				<li><?php echo anchor('login/logout/', '<i class="fa fa-sign-out fa-3x"></i>Sign Out', 'title = "Sign Out"'); ?></li>
+				<li><?php echo anchor('login/logout/', '<i class="fa fa-sign-out fa-3x"></i>Sign Out', 'title = "Sign Out" class="' . $isSelling . '"'); ?></li>
 			</ul>
 		</nav>
 	</div>

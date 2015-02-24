@@ -15,7 +15,7 @@ class Mreports extends CI_Model {
 	/**
 	 * MIS report
 	 */
-    
+
 	public function mis_report() {
 		$this->db->select(array('i.iid', 'i.invoice_number', 'i.crdate AS invoice_date', 'i.customer',
 				'u.firstname AS invoice_seller', 'd.name AS product_name', 'd.qty AS product_qty',
@@ -23,11 +23,9 @@ class Mreports extends CI_Model {
 			->from('ci_invoices i')
 			->join('ci_users u', 'u.uid = i.cruser')
 			->join('ci_invoice_details d', 'd.iid = i.iid')
-			//->join('ci_products p', 'p.name = d.name')
-			->join('ci_categories c', 'c.cid = d.cid')
+			->join('ci_categories c', 'c.cid = d.parent_id')
 			->where('i.status', 1)
 			->where('i.report', 0);
-		 //$this->db->order_by("i.invoice_number"); 
 		$result = $this->db->get();
 
 		if ($result->num_rows() > 0) {
@@ -84,7 +82,7 @@ class Mreports extends CI_Model {
 		if ($this->input->post('brand')) {
             $this->db->where('category_name', $this->input->post('brand'));
         }
-        
+
         if ($this->input->post('category')) {
 		    $this->db->where('category_parent_id', $this->input->post('category'));
 		}

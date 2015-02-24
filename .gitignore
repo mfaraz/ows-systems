@@ -5,4 +5,7 @@ nbproject
 
 ## Project files
 ##--------------------
-/user_guide
+/user_guide/*
+/system/*
+index.php
+license.txt

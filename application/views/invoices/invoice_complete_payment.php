@@ -3,7 +3,7 @@
 	if ($invoice_items) {
 		foreach ($invoice_items as $item) {
 			$customer = $item->customer ? $item->customer : '?';
-			$cashier = $this->session->userdata('ci_firstname');
+			$cashier = $this->musers->has_login('sess_fullname');
 			$invoice_date = $item->modate != 0 ? mdate('%d-%m-%Y %H:%i', $item->modate) : '?';
 			$invoice_number = $item->invoice_number;
 			if ($item->cash_type == 'US') {

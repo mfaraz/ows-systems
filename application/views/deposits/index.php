@@ -58,8 +58,7 @@
 							<td><?php echo mdate('%d-%M-%Y %H:%i', $deposit->crdate); ?></td>
 							<td>
 								<?php
-								echo anchor('invoices/complete_payment/' . $deposit->chash, '<span class="glyphicon
-								glyphicon-saved"></span>', 'title="Complete Payment" class="btn btn-warning btn-xs"');
+								echo anchor('invoices/complete_payment/' . $deposit->chash, '<span class="glyphicon glyphicon-copyright-mark"></span>', 'title="Complete Payment" class="btn btn-info btn-xs"');
 								?>
 							</td>
 						</tr>

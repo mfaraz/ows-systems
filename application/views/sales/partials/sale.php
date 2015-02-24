@@ -8,16 +8,14 @@
 			</div>
 		</div>
 		<?php// print_r($categories);exit();?>
-		
+
 		<?php if ($categories):  ?>
-			
 			<div class="form-group <?php echo form_is_error('parent_id'); ?>">
-				<label for="parent_id" class="control-label col-sm-3">Category<span class="required">*</span></label>
+				<label for="parent_id" class="control-label col-sm-3">Category</label>
 				<div class="col-sm-9">
 					<?php echo form_dropdown('parent_id', array('' => '--category--') + $categories, set_value('parent_id'), 'class="form-control input-sm" id="parent_id"'); ?>
 					<?php echo form_error('parent_id'); ?>
 				</div>
-				
 			</div>
 		<?php endif; ?>
 		<?php

@@ -22,14 +22,18 @@ class Sales extends HD_Controller {
 	public function index() {
 		// check in case invoice exist
 		$this->_data['invoice_items'] = $this->msales->check_purchase();
+		if ($this->_data['invoice_items'] == FALSE) {
+			$this->msales->discardCurrentInvoice($this->session->userdata('cur_invoice_id'));
+			$this->session->unset_userdata('cur_invoice_id');
+		}
 
 		$this->form_validation->set_rules('name', 'Product', 'required|min_length[1]|max_length[50]|trim');
-		$this->form_validation->set_rules('parent_id', 'Product Category', 'required');
-		
+		$this->form_validation->set_rules('parent_id', '', 'trim');
 		$this->form_validation->set_rules('cid', '', 'trim');
 		$this->form_validation->set_rules('qty', 'Quantity', 'required|min_length[1]|max_length[5]|trim|numeric');
 		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required|min_length[1]|max_length[25]|trim|numeric');
 		$this->form_validation->set_select('cid');
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->_data['categories'] = $this->mcategories->select_categorylist();
 			$this->load->view('index', $this->_data);
@@ -63,11 +67,12 @@ class Sales extends HD_Controller {
 		$this->_data['invoice_items'] = $this->msales->check_purchase($chash);
 
 		$this->form_validation->set_rules('name', 'Product', 'required|min_length[1]|max_length[50]|trim');
-		$this->form_validation->set_rules('parent_id', 'Product Category', 'required');
+		$this->form_validation->set_rules('parent_id', '', 'trim');
 		$this->form_validation->set_rules('cid', '', 'trim');
 		$this->form_validation->set_rules('qty', 'Quantity', 'required|min_length[1]|max_length[5]|trim|numeric');
 		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required|min_length[1]|max_length[25]|trim|numeric');
 		$this->form_validation->set_select('cid');
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->_data['categories'] = $this->mcategories->select_categorylist();
 			$this->load->view('index', $this->_data);

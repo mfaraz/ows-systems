@@ -11,9 +11,10 @@ class Welcome extends HD_Controller {
 	}
 
 	public function index() {
-		$this->load->view('index', $this->_data);
+		redirect('sales/');
 	}
+
 }
 
-/* End of file home.php */
-/* Location: ./application/controllers/home.php */
+/* End of file welcome.php */
+/* Location: ./application/controllers/welcome.php */
