@@ -26,13 +26,13 @@ echo doctype('html5');
 							<div class="form-group <?php echo form_is_error('username'); ?>">
 								<?php
 								echo form_label('Username');
-								echo form_input('username', set_value('username'), 'class="form-control" placeholder="Username"');
+								echo form_input('username', set_value('username'), 'class="form-control" placeholder="Username" required="required"');
 								?>
 							</div>
 							<div class="form-group <?php echo form_is_error('password'); ?>">
 								<?php
 								echo form_label('Password');
-								echo form_password('password', set_value('password'), 'class="form-control" placeholder="Password"');
+								echo form_password('password', set_value('password'), 'class="form-control" placeholder="Password" required="required"');
 								?>
 							</div>
 							<div class="form-group last">

@@ -67,7 +67,7 @@
 								foreach ($invoice_items as $item) {
 									if ($item->cash_receive != '0.00') {
 										?>
-										<a href="<?php echo base_url(); ?>invoices/print_invoice/<?php echo $item->invoice_number; ?>" class="btn btn-sm btn-info print"
+										<a href="<?php echo base_url(); ?>invoices/print_invoice/<?php echo $item->invoice_number; ?>" class="btn btn-sm btn-info print" onclick="window.print()"
 										   title="Print"><span class="glyphicon glyphicon-print"></span> Print</a>
 										   <?php
 									   }

@@ -46,7 +46,7 @@
 					N&ordm;: <?php echo $invoice_number; ?>
 				</td>
 			</tr>
-		</table>
+		</table> 
 		<table class="table table-striped table-hover print" style="margin-bottom: 0;">
 			<thead>
 				<tr>
@@ -71,8 +71,8 @@
 					<td>&nbsp;</td>
 					<td colspan="3" class="align-left">
 						<?php
-						if ($cash_receive == '0.00') {
-							echo 'Total:';
+						if ($cash_receive == '0.00' && $grand_total == '0.00') {
+							echo 'Total:' . '<br />';
 						}
 						if ($total !== '0.00' && $discount !== '0') {
 							echo 'Sub Total:<br>';
@@ -92,15 +92,15 @@
 						if ($balance != '0.00') {
 							echo 'Remaining:<br>';
 						}
-						if ($cash_exchange != '0.00') {
+						if ($cash_exchange != '0.00' && $cash_receive !== '0.00') {
 							echo 'Exchange:';
 						}
 						?>
 					</td>
 					<td class="align-right">
 						<?php
-						if ($cash_receive == '0.00') {
-							echo '$' . $sub_total;
+						if ($cash_receive == '0.00' && $grand_total == '0.00') {
+							echo '$' . $sub_total . '<br />';
 						}
 						if ($total !== '0.00' && $discount !== '0') {
 							echo $total . '<br>';
@@ -120,7 +120,7 @@
 						if ($balance != '0.00') {
 							echo $balance . '<br>';
 						}
-						if ($cash_exchange != '0.00') {
+						if ($cash_exchange != '0.00' && $cash_receive !== '0.00') {
 							echo $cash_exchange;
 						}
 						?>

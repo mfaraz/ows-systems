@@ -7,32 +7,39 @@
 				<?php echo form_error('name'); ?>
 			</div>
 		</div>
-		<?php if ($categories): ?>
-			<div class="form-group">
-				<label for="parent_id" class="control-label col-sm-3">Category</label>
+		<?php// print_r($categories);exit();?>
+		
+		<?php if ($categories):  ?>
+			
+			<div class="form-group <?php echo form_is_error('parent_id'); ?>">
+				<label for="parent_id" class="control-label col-sm-3">Category<span class="required">*</span></label>
 				<div class="col-sm-9">
 					<?php echo form_dropdown('parent_id', array('' => '--category--') + $categories, set_value('parent_id'), 'class="form-control input-sm" id="parent_id"'); ?>
+					<?php echo form_error('parent_id'); ?>
 				</div>
+				
 			</div>
 		<?php endif; ?>
 		<?php
-		$brands = array();
-		foreach ($categories as $key => $value) {
-			$brands = $this->mcategories->select_brandlist($key);
-			if ($brands) {
-				echo '<div class="form-group brand hidden" id="brand' . $key . '">'
-				. '<label for="cid" class="control-label col-sm-3">Brand</label>'
-				. '<div class="col-sm-9">'
-				. form_dropdown('cid', $brands, set_value('cid'), 'class="form-control input-sm"')
-				. '</div></div>';
-				unset($brands);
-			} else {
-				echo '<div class="form-group brand hidden" id="brand' . $key . '">'
-				. '<label for="cid" class="control-label col-sm-3">Brand</label>'
-				. '<div class="col-sm-9"><select name="cid" id="brand' . $key . '" class="form-control input-sm" disabled="disabled"></select>'
-				. '</div></div>';
+		if($categories):
+			$brands = array();
+			foreach ($categories as $key => $value) {
+				$brands = $this->mcategories->select_brandlist($key);
+				if ($brands) {
+					echo '<div class="form-group brand hidden" id="brand' . $key . '">'
+					. '<label for="cid" class="control-label col-sm-3">Brand</label>'
+					. '<div class="col-sm-9">'
+					. form_dropdown('cid', $brands, set_value('cid'), 'class="form-control input-sm"')
+					. '</div></div>';
+					unset($brands);
+				} else {
+					echo '<div class="form-group brand hidden" id="brand' . $key . '">'
+					. '<label for="cid" class="control-label col-sm-3">Brand</label>'
+					. '<div class="col-sm-9"><select name="cid" id="brand' . $key . '" class="form-control input-sm" disabled="disabled"></select>'
+					. '</div></div>';
+				}
 			}
-		}
+		endif;
 		?>
 		<div class="form-group <?php echo form_is_error('qty'); ?>">
 			<label for="qty" class="control-label col-sm-3">Quantity <span class="required">*</span></label>

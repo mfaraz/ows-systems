@@ -33,20 +33,37 @@
 				?>
 			</div>
 			<div class="form-group">
-				<?php
-				if ($categories) {
-					echo form_dropdown('category', array('' => '--category--') + $categories, set_value('category'), 'class="form-control input-sm" id="category"');
-				}
-				?>
-			</div>
+                <?php
+                if ($categories) {
+                    echo form_dropdown('category', array('' => '--category--') + $categories, set_value('category'), 'class="form-control input-sm" id="category"');
+                }
+                ?>
+            </div>
 			<div class="form-group">
 				<?php
+				
+				//if ($brands) {
+					//echo form_dropdown('brand', array('' => '--brand--') + $brands, set_value('brand'), 'class="form-control input-sm" id="brand"');
+				//}
 				if ($brands) {
-					echo form_dropdown('brand', array('' => '--brand--') + $brands, set_value('brand'), 'class="form-control input-sm" id="brand"');
+					?>
+					<select name="brand" class="form-control input-sm">
+						<option value="">--brand--</option>
+						<?php
+						
+						
+						foreach ($brands as $brand=>$brand_value) {
+							echo '<option value="'.$brand_value.'">'.$brand_value.'</option>';
+						}
+						?>
+					</select>
+					<?php
 				}
 				?>
 			</div>
 			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
+            <button type="submit" class="btn btn-sm btn-primary" value="Export" name="export"><i class="glyphicon glyphicon-export"></i> Export</button>
+            
 			</form>
 		</div>
 		<?php

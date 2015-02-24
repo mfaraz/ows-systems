@@ -24,6 +24,8 @@ class Sales extends HD_Controller {
 		$this->_data['invoice_items'] = $this->msales->check_purchase();
 
 		$this->form_validation->set_rules('name', 'Product', 'required|min_length[1]|max_length[50]|trim');
+		$this->form_validation->set_rules('parent_id', 'Product Category', 'required');
+		
 		$this->form_validation->set_rules('cid', '', 'trim');
 		$this->form_validation->set_rules('qty', 'Quantity', 'required|min_length[1]|max_length[5]|trim|numeric');
 		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required|min_length[1]|max_length[25]|trim|numeric');
@@ -61,6 +63,7 @@ class Sales extends HD_Controller {
 		$this->_data['invoice_items'] = $this->msales->check_purchase($chash);
 
 		$this->form_validation->set_rules('name', 'Product', 'required|min_length[1]|max_length[50]|trim');
+		$this->form_validation->set_rules('parent_id', 'Product Category', 'required');
 		$this->form_validation->set_rules('cid', '', 'trim');
 		$this->form_validation->set_rules('qty', 'Quantity', 'required|min_length[1]|max_length[5]|trim|numeric');
 		$this->form_validation->set_rules('unit_price', 'Unit Price', 'required|min_length[1]|max_length[25]|trim|numeric');
@@ -89,6 +92,7 @@ class Sales extends HD_Controller {
 		$this->db->where('idid', $idid);
 		$this->db->where('iid', $iid);
 		if ($this->db->delete('ci_invoice_details')) {
+			$this->session->set_userdata('returnable', TRUE);
 			$this->msales->cut_stock($name, $qty, TRUE);
 		}
 
@@ -102,7 +106,7 @@ class Sales extends HD_Controller {
 		$result = $this->db->get('ci_invoice_details');
 		if ($result->num_rows() < 1) {
 			$data = array(
-				'cash_recive' => 0.00,
+				'cash_receive' => 0.00,
 				'total' => 0.00,
 				'grand_total' => 0.00,
 				'discount' => 0,

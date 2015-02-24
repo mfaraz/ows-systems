@@ -41,7 +41,7 @@ class Products extends HD_Controller {
 	public function add() {
 		$this->_data['categories'] = $this->mcategories->select_categorylist();
 
-		$this->form_validation->set_rules('name', 'name', 'required|trim|max_length[50]|min_length[2]|is_unique[ci_products.name]');
+		$this->form_validation->set_rules('name', 'name', 'required|trim|max_length[50]|min_length[1]|is_unique[ci_products.name]');
 		$this->form_validation->set_rules('unit_in_stocks', 'unit in stocks', 'required|trim|max_length[50]|min_length[1]|numeric');
 		$this->form_validation->set_rules('description', '', 'trim');
 		$this->form_validation->set_rules('status', '', 'trim');

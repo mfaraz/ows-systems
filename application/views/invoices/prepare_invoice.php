@@ -1,6 +1,7 @@
 <div class="panel-heading hidden-print">
 	<h2 class="panel-title">Invoice Generation</h2>
 </div>
+
 <div class="panel-body">
 	<?php
 	echo $this->session->flashdata('message');
@@ -11,29 +12,30 @@
 		<div class="row">
 			<div class="col-md-6 hidden-print">
 				<?php
-				echo form_open('invoices/prepare_invoice', 'class="form-horizontal" role="form"');
+				echo form_open('invoices/prepare_invoice/', 'class="form-horizontal" role="form"');
 				?>
+				
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
 							Customer Information
-							<button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+							<button type="submit" class="btn btn-sm btn-info" onclick="showPrintButton()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="form-group <?php echo form_is_error('customer'); ?>">
 							<label for="customer" class="control-label col-sm-3">Customer</label>
 							<div class="col-md-9">
-								<input type="text" name="customer" id="customer" class="form-control input-sm" value="<?php echo set_value('customer', $data['customer']); ?>" pattern=".{9,30}" title="Allow enter between 1 to 50 characters" />
+								<input type="text" name="customer" id="customer" class="form-control input-sm" value="" title="Allow enter between 1 to 50 characters" />
 								<?php echo form_error('customer'); ?>
 								<p class="help-block"><span class="glyphicon glyphicon-exclamation-sign"></span> Customer Name or Phone Number!</p>
 							</div>
 						</div>
 						<div class="form-group <?php echo form_is_error('cash_receive'); ?>">
 							<label for="cash_receive" class="control-label col-sm-3">Cash Received <span
-									class="required">*</span></label>
+									</span></label>
 							<div class="col-md-9">
-								<input type="text" name="cash_receive" id="cash_receive" class="form-control input-sm" value="<?php echo set_value('cash_receive', $data['grand_total']); ?>" pattern=".{1,50}" title="Allow enter between 1 to 50 characters" required />
+								<input type="text" class="form-control input-sm" id="cash_receive" name="cash_receive" value=""  />
 								<?php echo form_error('cash_receive'); ?>
 							</div>
 						</div>
@@ -62,6 +64,7 @@
 							<label for="deposit" class="control-label col-sm-3">Deposit</label>
 							<div class="col-md-9">
 								<input type="text" name="deposit" id="deposit" class="form-control input-sm" value="<?php echo set_value('deposit'); ?>" pattern=".{1,50}" title="Allow enter between 1 to 50 characters" />
+								<input type="hidden" name="invoice_id" id="invoice_id" value="<?php echo $this->uri->segment(4); ?>" />
 								<?php echo form_error('deposit'); ?>
 							</div>
 						</div>
@@ -79,12 +82,11 @@
 							<?php
 							if ($invoice_items) {
 								foreach ($invoice_items as $item) {
-									if ($item->cash_receive != '0.00') {
+										$show_print_button = $item->customer != '' ? '' : 'hidden';
 										?>
-										<a href="<?php echo base_url(); ?>invoices/print_invoice" class="btn btn-sm btn-info print"
-										   title="Print"><span class="glyphicon glyphicon-print"></span> Print</a>
+										<a href="<?php echo base_url(); ?>invoices/print_invoice" class="btn btn-sm btn-info print <?php echo $show_print_button; ?>"
+										   title="Print" onclick="window.print()"><span class="glyphicon glyphicon-print"></span> Print</a>
 										   <?php
-									   }
 									   break;
 								   }
 							   }

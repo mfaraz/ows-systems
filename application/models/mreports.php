@@ -15,10 +15,11 @@ class Mreports extends CI_Model {
 	/**
 	 * MIS report
 	 */
+    
 	public function mis_report() {
 		$this->db->select(array('i.iid', 'i.invoice_number', 'i.crdate AS invoice_date', 'i.customer',
 				'u.firstname AS invoice_seller', 'd.name AS product_name', 'd.qty AS product_qty',
-				'd.unit_price AS product_price', 'd.sub_total AS product_total', 'c.name AS category_name'))
+				'd.unit_price AS product_price', 'd.sub_total AS product_total', 'c.name AS category_name', 'c.parent_id AS cat_parent'))
 			->from('ci_invoices i')
 			->join('ci_users u', 'u.uid = i.cruser')
 			->join('ci_invoice_details d', 'd.iid = i.iid')
@@ -26,6 +27,7 @@ class Mreports extends CI_Model {
 			->join('ci_categories c', 'c.cid = d.cid')
 			->where('i.status', 1)
 			->where('i.report', 0);
+		 //$this->db->order_by("i.invoice_number"); 
 		$result = $this->db->get();
 
 		if ($result->num_rows() > 0) {
@@ -42,7 +44,8 @@ class Mreports extends CI_Model {
 					'product_qty' => $arr->product_qty,
 					'product_price' => $arr->product_price,
 					'product_total' => $arr->product_total,
-					'category_name' => $arr->category_name
+					'category_name' => $arr->category_name,
+					'category_parent_id' => $arr->cat_parent
 				);
 				if ($this->db->insert('ci_reports', $this->_data)) {
 					$this->db->set('report', 1)
@@ -78,8 +81,12 @@ class Mreports extends CI_Model {
 			$this->db->where('invoice_seller', $this->input->post('cashier'));
 		}
 
-		if ($this->input->post('category')) {
-			$this->db->where('category_name', $this->input->post('category'));
+		if ($this->input->post('brand')) {
+            $this->db->where('category_name', $this->input->post('brand'));
+        }
+        
+        if ($this->input->post('category')) {
+		    $this->db->where('category_parent_id', $this->input->post('category'));
 		}
 
 		$date_split = explode('-', $date);

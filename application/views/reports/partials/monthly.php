@@ -27,7 +27,7 @@
 					<td><?php echo $i++; ?></td>
 					<td><?php echo $report->invoice_number; ?></td>
 					<?php
-					if (!empty($this->msettings->display_setting('DISPLAY_CUSTOMER'))) {
+					if ($this->msettings->display_setting('DISPLAY_CUSTOMER')) {
 						echo '<td>' . $report->customer . '</td>';
 					}
 					?>

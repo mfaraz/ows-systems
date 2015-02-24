@@ -19,6 +19,9 @@
 				<input type="text" class="form-control input-sm" id="customer" name="customer" value="<?php echo set_value('customer'); ?>" placeholder="Customer" pattern=".{1,50}" title="Allow enter between 1 to 50 character(s)">
 			</div>
 			<button type="submit" class="btn btn-primary btn-sm" value="submit" name="submit"><i class="glyphicon glyphicon-filter"></i> Filter</button>
+            <!-- @Visal -->
+            <button type="submit" class="btn btn-sm btn-primary" value="Export" name="export"><i class="glyphicon glyphicon-export"></i> Export</button>
+            <!-- -->
 			<span class="pull-right">Total Invoice = <span class="badge badge-success"><?php echo $total_invoices; ?></span> Deposit = <span class="badge badge-warning"><?php echo $total_deposits; ?></span></span>
 			</form>
 		</div>
@@ -71,14 +74,10 @@
 							<td><?php echo $invoice->modate != 0 ? mdate('%d-%M-%Y %H:%i', $invoice->modate) : '---'; ?></td>
 							<td>
 								<?php
-								if ($invoice->deposit != '0.00') {
-									echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
-								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs" disabled="disabled"');
-								} else {
-									$expired = ceil(abs(time() - $invoice->modate) / 86400);
+								$modate = $invoice->modate != 0 ? $invoice->modate : $invoice->crdate;
+									$expired = ceil(abs(time() - $modate) / 86400);
 									echo anchor('sales/returnable/' . $invoice->chash, '<span class="glyphicon
 								glyphicon-saved"></span>', 'title="Returnable" class="btn btn-warning btn-xs"' . ($expired > 3 ? 'disabled="disabled"' : ''));
-								}
 								echo '&nbsp;' . anchor('invoices/view/' . $invoice->invoice_number, '<span class="glyphicon glyphicon-eye-open"></span>', 'title="View Detail" class="btn btn-default btn-xs"');
 								?>
 							</td>

@@ -16,7 +16,7 @@
 					<div class="form-group <?php echo form_is_error('name'); ?>">
 						<?php echo form_label('Name <span class="required">*</span>', 'name', array('class' => 'col-md-3 control-label')); ?>
 						<div class="col-md-9">
-							<?php echo form_input('name', set_value('name'), 'id="name" class="form-control input-sm" placeholder="Name" pattern=".{2,50}" title="Allow enter between 2 to 50 characters" required') . form_error('name'); ?>
+							<?php echo form_input('name', set_value('name'), 'id="name" class="form-control input-sm" placeholder="Name" pattern=".{1,50}" title="Allow enter between 1 to 50 characters" required') . form_error('name'); ?>
 						</div>
 					</div>
 					<div class="form-group <?php echo form_is_error('name'); ?>">

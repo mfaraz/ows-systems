@@ -35,9 +35,11 @@
 						<h3 class="panel-title">
 							Purchase Information
 							<?php
-							if ($invoice_items) {
-								echo anchor('invoices/prepare_invoice/' . $this->uri->segment(3) . '/' . $this->uri->segment(4), '<span class="glyphicon
-								glyphicon-circle-arrow-right"></span> Next', 'class="btn btn-sm btn-info"');
+							if($this->uri->segment(4)){
+								if ($invoice_items) {
+									echo anchor('invoices/prepare_invoice/' . $this->uri->segment(3) . '/' . $this->uri->segment(4), '<span class="glyphicon
+									glyphicon-circle-arrow-right"></span> Next', 'class="btn btn-sm btn-info"');
+								}
 							}
 							?>
 						</h3>

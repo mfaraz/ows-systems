@@ -109,16 +109,21 @@ class Msales extends CI_Model {
 	/**
 	 * Save invoice detial
 	 */
-	public function save_invoice_details($invoice_no = '') {
+	public function save_invoice_details($invoice_no = '') { 
+
+		
+		
 		$this->_data = array(
 			'iid' => ($invoice_no != '' ? $invoice_no : $this->session->userdata('cur_invoice_id')),
 			'parent_id' => $this->input->post('parent_id'),
-			'cid' => $this->input->post('cid'),
+			'cid' => $this->input->post('parent_id') != '' ? $this->input->post('cid') : '',
 			'name' => $this->input->post('name'),
 			'qty' => $this->input->post('qty'),
 			'unit_price' => $this->input->post('unit_price'),
 			'sub_total' => ($this->input->post('qty') * $this->input->post('unit_price'))
 		);
+		
+		
 		$this->db->insert('ci_invoice_details', $this->_data);
 	}
 
@@ -154,13 +159,13 @@ class Msales extends CI_Model {
 	 *
 	 * @return mixed
 	 */
-	public function get_total($invoice_no = '') {
-		if (empty($invoice_no)) {
-			$iid = $this->session->userdata('cur_invoice_id');
-		} else {
-			$iid = $invoice_no;
-		}
-		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = ' . $iid . ') AS total', FALSE);
+	public function get_total($iid = '') {
+		/**
+		 * TODO: Finalize why $iid is empty for saving data for printing
+		 */
+		$iid = $this->session->userdata('cur_invoice_id');
+
+		$this->db->select('(SELECT SUM(sub_total) FROM ci_invoice_details WHERE iid = '.$iid.') AS total', FALSE);
 		$result = $this->db->get('ci_invoice_details')->result();
 		if ($result) {
 			foreach ($result as $r) {
@@ -168,6 +173,7 @@ class Msales extends CI_Model {
 				break;
 			}
 		}
+
 		return $result;
 	}
 

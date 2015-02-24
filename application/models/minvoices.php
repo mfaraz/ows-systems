@@ -18,9 +18,9 @@ class Minvoices extends CI_Model {
 	 * @return array
 	 */
 	public function findAllInvoices($num_row, $from_row) {
-		if ($this->musers->has_login('sess_id') != 1) {
-			$this->db->where('i.cruser', $this->musers->has_login('sess_id'));
-		}
+		//if ($this->musers->has_login('sess_id') != 1) {
+		//	$this->db->where('i.cruser', $this->musers->has_login('sess_id'));
+		//}
 		if ($this->input->post('invoice_number') != '') {
 			$this->db->like('i.invoice_number', $this->input->post('invoice_number'));
 		}
@@ -82,7 +82,6 @@ class Minvoices extends CI_Model {
 			'D.qty AS quality',
 			'D.unit_price AS unit_price',
 			'D.sub_total AS sub_total'
-
 		);
 		$this->db->select($fields)
 			->from('ci_invoices I')
@@ -90,6 +89,7 @@ class Minvoices extends CI_Model {
 			->where('I.invoice_number', $invoice_number);
 		return $this->db->get();
 	}
+
 }
 
 /* End of file minvoices.php */
